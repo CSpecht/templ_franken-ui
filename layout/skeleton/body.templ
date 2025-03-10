@@ -1,0 +1,18 @@
+package skeleton
+//bodyContent templ.Component,
+
+
+templ Body( bodyAttributes templ.Attributes) {
+    cl := []string{}
+	  at := templ.Attributes{}
+    <body {bodyAttributes ...}>
+      //  @bodyContent
+    // add container for alerting here!
+    //navbar add 
+    //footer
+   
+
+	  b := button.NewPrimaryButton("test", cl, at, button.Primary, button.Sm, button.W40, icon.NewIcon("smile"))
+	  skeleton.Body(b)
+    </body>
+}

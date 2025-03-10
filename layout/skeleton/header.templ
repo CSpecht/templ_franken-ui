@@ -1,0 +1,34 @@
+package skeleton
+
+templ Header(title string) {
+		<head>
+        <meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="preload" href="/../../fonts/Sans.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/../../fonts/Mono.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="stylesheet" href="/../../fonts/style.css" />
+		<title>{title}</title>
+        <script>
+			const htmlElement = document.documentElement;
+
+			const __FRANKEN__ = JSON.parse(localStorage.getItem('__FRANKEN__') || '{}');
+
+			if (
+				__FRANKEN__.mode === 'dark' ||
+				(!__FRANKEN__.mode && window.matchMedia('(prefers-color-scheme: dark)').matches)
+			) {
+				htmlElement.classList.add('dark');
+			} else {
+				htmlElement.classList.remove('dark');
+			}
+
+			htmlElement.classList.add(__FRANKEN__.theme || 'uk-theme-zinc');
+			htmlElement.classList.add(__FRANKEN__.radii || 'uk-radii-md');
+			htmlElement.classList.add(__FRANKEN__.shadows || 'uk-shadows-sm');
+			htmlElement.classList.add(__FRANKEN__.font || 'uk-font-sm');
+			htmlElement.classList.add(__FRANKEN__.chart || 'uk-chart-base');
+		</script>
+		// %sveltekit.head%
+	</head>
+}

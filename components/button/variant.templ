@@ -1,0 +1,34 @@
+package button
+import (
+    "slices"
+)
+templ (b *button)create() {
+	
+    <button class={ "uk-btn", b.classes} { b.attributes ... }>
+		//icon button
+        if slices.Index(b.classes,"uk-btn-icon") != -1 {
+            //add icon component
+            @b.icon.Component()
+            
+        }   
+        
+        // if b.leftIcon!=nil {
+		// 	<span class="pf-v5-c-button__icon pf-m-start">
+		// 		@b.leftIcon.Component()
+		// 	</span>
+		// }
+		// if b.loader !=nil{
+		// 	@b.loader
+			
+		// }
+		// 	{ b.name }
+		
+		
+		// if b.rightIcon!=nil {
+			
+		// 	<span class="pf-v5-c-button__icon pf-m-end --pf-v5-global--spacer--sm">
+		// 		@b.rightIcon.Component()
+		// 	</span>
+		// }
+	</button>
+}
