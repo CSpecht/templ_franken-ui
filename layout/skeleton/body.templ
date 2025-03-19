@@ -1,17 +1,20 @@
 package skeleton
 
-
-
 //bodyContent templ.Component,
-templ Body( bodyAttributes templ.Attributes) {
-	cl := []string{  }
-	at := templ.Attributes{  }
+templ Body(components []templ.Component) {
+	// cl := []string{  }
+	// at := templ.Attributes{  }
 	<body { bodyAttributes ... }>
-		//  @bodyContent
-		// add container for alerting here!
-		//navbar add 
-		//footer
-		b := button.NewPrimaryButton("test", cl, at, button.Primary, button.Sm, button.W40, icon.NewIcon("smile"))
-		skeleton.Body(b)
+		for _, c := range components {
+			@c
+		}
 	</body>
+	// <body { bodyAttributes ... }>
+	// 	//  @bodyContent
+	// 	// add container for alerting here!
+	// 	//navbar add 
+	// 	//footer
+	// 	b := button.NewPrimaryButton("test", cl, at, button.Primary, button.Sm, button.W40, icon.NewIcon("smile"))
+	// 	skeleton.Body(b)
+	// </body>
 }

@@ -4,10 +4,6 @@ templ FullSite(title string, components ...templ.Component) {
 	<!DOCTYPE html>
 	<html>
 		@Header(title)
-		<body>
-			for _, c := range components {
-				@c
-			}
-		</body>
+		@Body(components)
 	</html>
 }

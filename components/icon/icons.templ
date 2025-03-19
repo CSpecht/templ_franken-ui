@@ -1,6 +1,7 @@
 package icon 
 
-templ (i *Icon)create() {
-	
-    <uk-icon icon={i.name}></uk-icon>
+import "strconv"
+
+templ (i *Icon) create() {
+	<uk-icon cls-custom={ i.clsCustom } icon={ i.name } stroke-width={ strconv.Itoa(i.strokeWidth) } height={ strconv.Itoa(i.height) } width={ strconv.Itoa(i.width) }></uk-icon>
 }
