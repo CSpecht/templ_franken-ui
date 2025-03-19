@@ -33,12 +33,12 @@ Components:
 - Comment
 - Container
 - Cover
-- Divider
+- ~~Divider~~
 - Dotnav
 - Drop
 - Dropdown
 - Filter
-- Icon
+- ~~Icon~~
 - Image
 - Label
 - Leader
