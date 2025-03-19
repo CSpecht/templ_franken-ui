@@ -1,15 +1,13 @@
 package skeleton
 
-// bodyContent templ.Component
-templ FullSite(title string){ 
-    <!DOCTYPE html>
-    <html>
-        @Header(title)
-    <body>
-        
-    </body>
-    </html>
-    
+templ FullSite(title string, components ...templ.Component) {
+	<!DOCTYPE html>
+	<html>
+		@Header(title)
+		<body>
+			for _, c := range components {
+				@c
+			}
+		</body>
+	</html>
 }
-
-//      @Body(bodyAttributes)

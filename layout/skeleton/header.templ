@@ -1,15 +1,16 @@
 package skeleton
 
 templ Header(title string) {
-		<head>
-        <meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="preload" href="/../../fonts/Sans.woff2" as="font" type="font/woff2" crossorigin />
-		<link rel="preload" href="/../../fonts/Mono.woff2" as="font" type="font/woff2" crossorigin />
-		<link rel="stylesheet" href="/../../fonts/style.css" />
-		<title>{title}</title>
-        <script>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="preload" href="/assets/fonts/Sans.woff2" as="font" type="font/woff2" crossorigin/>
+		<link rel="preload" href="/assets/fonts/Mono.woff2" as="font" type="font/woff2" crossorigin/>
+		<link rel="stylesheet" href="/assets/css/franken-ui@2.0.0/core.min.css"/>
+		<script src="/assets/js/franken-ui@2.0.0/core.iife.js"></script>
+		<script src="/assets/js/franken-ui@2.0.0/icon.iife.js"></script>
+		<title>{ title }</title>
+		<script>
 			const htmlElement = document.documentElement;
 
 			const __FRANKEN__ = JSON.parse(localStorage.getItem('__FRANKEN__') || '{}');
