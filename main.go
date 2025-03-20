@@ -9,6 +9,7 @@ import (
 	btn "github.com/cspecht/templ_franken-ui/components/button"
 	"github.com/cspecht/templ_franken-ui/components/divider"
 	"github.com/cspecht/templ_franken-ui/components/icon"
+	"github.com/cspecht/templ_franken-ui/components/label"
 	"github.com/cspecht/templ_franken-ui/components/placeholder"
 	"github.com/cspecht/templ_franken-ui/layout/skeleton"
 	"github.com/go-chi/chi/v5"
@@ -50,14 +51,17 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 
 	comp = append(comp, divider.NewDivider().AsIcon().Component())
 	comp = append(comp, divider.NewDivider().AsVertical().Component())
-	
+
 	// placeholder
-	
+
 	comp = append(comp, placeholder.NewPlaceholder().Component())
+
+	// label
+	l := label.NewLabel("Label")
+	l.AsDestructive().AddClasses("test")
 	
+	comp = append(comp, l.Component())
 	//render fullsite
 	skeleton.FullSite("name", comp...).Render(r.Context(), w)
-
-	
 
 }

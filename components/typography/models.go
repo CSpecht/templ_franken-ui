@@ -122,15 +122,14 @@ type text struct {
 	content    string
 	attributes templ.Attributes
 	alignment  Alignment
-	size TextSize
-	textStyle TextStyle
-
+	size       TextSize
+	textStyle  TextStyle
 }
 
 func NewText(content string) *text {
 	return &text{
 		content: content,
-		size:   Default,
+		size:    Default,
 	}
 }
 func (t *text) SetAlignment(alignment Alignment) *text {
@@ -138,7 +137,7 @@ func (t *text) SetAlignment(alignment Alignment) *text {
 	return t
 }
 func (t *text) SetSize(size TextSize) *text {
-	t.size = size	
+	t.size = size
 	return t
 }
 func (t *text) SetTextStyle(style TextStyle) *text {

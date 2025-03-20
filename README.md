@@ -40,7 +40,7 @@ Components:
 - Filter
 - ~~Icon~~
 - Image
-- Label
+- ~~Label~~
 - Leader
 - Lightbox
 - Link
@@ -52,7 +52,7 @@ Components:
 - Offcanvas
 - Pagination
 - Parallax
-- Placeholder
+- ~~Placeholder~~
 - Position
 - Progress
 - Scroll
@@ -74,6 +74,6 @@ Components:
 - Toggle
 - Tooltip
 - Transition
-- Typography
+- ~~Typography~~
 - Utility
 - Video
