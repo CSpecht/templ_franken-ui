@@ -1,0 +1,7 @@
+package typography
+
+templ (ic *inlineCode) create() {
+	<code class={ "uk-codespan" } { ic.attributes ... }>
+		{ ic.content }
+	</code>
+}

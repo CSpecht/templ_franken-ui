@@ -1,0 +1,9 @@
+package placeholder
+
+templ (p *placeholder) create() {
+	<div class={ "uk-placeholder", p.alignment } { p.attributes ... }>
+		for _, c := range p.content {
+			@c
+		}
+	</div>
+}

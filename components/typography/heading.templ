@@ -1,0 +1,7 @@
+package typography
+
+templ (h *heading) create() {
+	<div class={ "mt-4", h.size, h.alignment, h.style } { h.attributes ... }>
+		{ h.content }
+	</div>
+}

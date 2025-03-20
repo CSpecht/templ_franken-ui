@@ -1,0 +1,7 @@
+package typography
+
+templ (p *paragraph) create() {
+	<p class={ "uk-paragraph" } { p.attributes ... }>
+		{ p.content }
+	</p>
+}

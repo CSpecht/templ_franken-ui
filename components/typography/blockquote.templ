@@ -1,0 +1,7 @@
+package typography
+
+templ (b *blockquote) create() {
+	<blockquote class={ "uk-blockquote" } { b.attributes ... }>
+		{ b.content }
+	</blockquote>
+}
