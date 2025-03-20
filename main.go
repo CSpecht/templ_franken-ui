@@ -68,7 +68,7 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	nav.AddItem(nav.AddNavbarEntry("Home").IsActive())
 	nav.AddHeader("Header")
 	nav.AddDivider()
-	nav.AddItem(nav.AddNavbarEntry("Home2"))
+	nav.AddItem(nav.AddNavbarEntry("Home2").SetLink("#", nil).SetIcon(icon.NewIcon("copy"), nil))
 	comp = append(comp, nav.Render())
 
 	//render fullsite

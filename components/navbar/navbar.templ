@@ -11,12 +11,14 @@ templ (n *navbar) Render() {
 templ (ne *navbarEntry) Render() {
 	<li class={ templ.KV("uk-active", ne.active), ne.GetClasses() } { ne.GetAttributes() ... }>
 		if len(ne.link) > 0 {
-			<a href={ ne.link } { ne.linkAttributes ... }>{ ne.name }</a>
+			<a href={ ne.link } { ne.linkAttributes ... }>
+				if ne.icon != nil {
+					@ne.icon.Component()
+				}
+				{ ne.name }
+			</a>
 		} else {
 			{ ne.name }
-		}
-		if ne.icon != nil {
-			@ne.icon.Component()
 		}
 		if ne.item != nil {
 			@ne.item
