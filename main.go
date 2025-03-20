@@ -10,6 +10,7 @@ import (
 	"github.com/cspecht/templ_franken-ui/components/divider"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 	"github.com/cspecht/templ_franken-ui/components/label"
+	"github.com/cspecht/templ_franken-ui/components/navbar"
 	"github.com/cspecht/templ_franken-ui/components/placeholder"
 	"github.com/cspecht/templ_franken-ui/layout/skeleton"
 	"github.com/go-chi/chi/v5"
@@ -59,8 +60,17 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	// label
 	l := label.NewLabel("Label")
 	l.AsDestructive().AddClasses("test")
-	
+
 	comp = append(comp, l.Component())
+
+	// nav
+	nav := navbar.NewNavbar()
+	nav.AddItem(nav.AddNavbarEntry("Home").IsActive())
+	nav.AddHeader("Header")
+	nav.AddDivider()
+	nav.AddItem(nav.AddNavbarEntry("Home2"))
+	comp = append(comp, nav.Render())
+
 	//render fullsite
 	skeleton.FullSite("name", comp...).Render(r.Context(), w)
 

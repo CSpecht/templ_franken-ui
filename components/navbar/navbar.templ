@@ -1,0 +1,33 @@
+package navbar
+
+templ (n *navbar) Render() {
+	<ul class={ "uk-nav", string(n.variant), n.GetClasses() } { n.GetAttributes() ... }>
+		for _, item := range n.items {
+			@item
+		}
+	</ul>
+}
+
+templ (ne *navbarEntry) Render() {
+	<li class={ templ.KV("uk-active", ne.active), ne.GetClasses() } { ne.GetAttributes() ... }>
+		if len(ne.link) > 0 {
+			<a href={ ne.link } { ne.linkAttributes ... }>{ ne.name }</a>
+		} else {
+			{ ne.name }
+		}
+		if ne.icon != nil {
+			@ne.icon.Component()
+		}
+		if ne.item != nil {
+			@ne.item
+		}
+	</li>
+}
+
+templ (n *navbar) createHeader(name string) {
+	<li class="uk-nav-header">{ name }</li>
+}
+
+templ (n *navbar) createDivider() {
+	<li class="uk-nav-divider"></li>
+}
