@@ -10,6 +10,7 @@ import (
 	"github.com/cspecht/templ_franken-ui/components/divider"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 	"github.com/cspecht/templ_franken-ui/components/label"
+	"github.com/cspecht/templ_franken-ui/components/listing"
 	"github.com/cspecht/templ_franken-ui/components/navbar"
 	"github.com/cspecht/templ_franken-ui/components/placeholder"
 	"github.com/cspecht/templ_franken-ui/layout/skeleton"
@@ -49,12 +50,10 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	comp = append(comp, btn.NewButton("Text").AsText().Component())
 
 	//divider
-
 	comp = append(comp, divider.NewDivider().AsIcon().Component())
 	comp = append(comp, divider.NewDivider().AsVertical().Component())
 
 	// placeholder
-
 	comp = append(comp, placeholder.NewPlaceholder().Component())
 
 	// label
@@ -71,7 +70,15 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	nav.AddItem(nav.AddNavbarEntry("Home2").SetLink("#", nil).SetIcon(icon.NewIcon("copy"), nil))
 	comp = append(comp, nav.Render())
 
+	//list
+	list := listing.NewList().AsStripped()
+	list.AddItem(list.AddListEntry("List Entry 1"))
+	list.AddItem(list.AddListEntry("List Entry 1"))
+
+	//list.AddItem(list.AddListEntry("List Entry 2"))
+	//list.AddItem(list.AddListEntry("List Entry 1"))
+	comp = append(comp, list.Render())
+
 	//render fullsite
 	skeleton.FullSite("name", comp...).Render(r.Context(), w)
-
 }

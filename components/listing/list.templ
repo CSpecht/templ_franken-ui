@@ -1,0 +1,19 @@
+package listing
+
+templ (l *list) Render() {
+	<ul class={ "uk-list", string(l.variant), l.GetClasses() } { l.GetAttributes() ... }>
+		for _, item := range l.items {
+			@item
+		}
+	</ul>
+}
+
+templ (le *listEntry) Render() {
+	<li class={ le.GetClasses() } { le.GetAttributes() ... }>
+		if le.item != nil {
+			@le.item
+		} else {
+			{ le.name }
+		}
+	</li>
+}
