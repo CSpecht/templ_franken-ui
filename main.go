@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/a-h/templ"
 	btn "github.com/cspecht/templ_franken-ui/components/button"
@@ -14,27 +13,22 @@ import (
 	"github.com/cspecht/templ_franken-ui/components/navbar"
 	"github.com/cspecht/templ_franken-ui/components/placeholder"
 	"github.com/cspecht/templ_franken-ui/layout/skeleton"
-	"github.com/go-chi/chi/v5"
 )
 
 func main() {
 
-	r := chi.NewRouter()
-	r.Get("/", handlePage)
+	http.HandleFunc("/", handlePage)
+	//r.Get("/", handlePage)
 
 	fs := http.FileServer(http.Dir("./assets/"))
-	r.Handle("/assets/*", http.StripPrefix("/assets", fs))
-
-	httpServer := &http.Server{
-		Addr:              ":8080",
-		Handler:           r,
-		ReadHeaderTimeout: time.Duration(60 * time.Second),
-	}
+	http.Handle("/assets/", http.StripPrefix("/assets", fs))
 	fmt.Println("Server is running on port 8080")
-	err := httpServer.ListenAndServe()
+	err := http.ListenAndServe(":8080", nil)
+
 	if err != nil {
-		panic(err)
+		panic(err.Error())
 	}
+
 }
 
 func handlePage(w http.ResponseWriter, r *http.Request) {
@@ -80,5 +74,7 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	comp = append(comp, list.Render())
 
 	//render fullsite
-	skeleton.FullSite("name", comp...).Render(r.Context(), w)
+	//skeleton.FullSite("name", comp...).Render(r.Context(), w)
+	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
+
 }
