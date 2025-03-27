@@ -18,7 +18,6 @@ import (
 func main() {
 
 	http.HandleFunc("/", handlePage)
-	//r.Get("/", handlePage)
 
 	fs := http.FileServer(http.Dir("./assets/"))
 	http.Handle("/assets/", http.StripPrefix("/assets", fs))
