@@ -1,0 +1,7 @@
+package badge
+
+templ (b *badge) Component() {
+	<span class={ "uk-badge", string(b.style), b.GetClasses(), } { b.GetAttributes() ... }>
+		{ b.content }
+	</span>
+}

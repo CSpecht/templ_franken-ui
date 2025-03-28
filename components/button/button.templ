@@ -1,0 +1,19 @@
+package button
+
+templ (b *button) Component() {
+	<button class={ "uk-btn", b.variant,b.size,b.width, b.GetClasses(), } { b.GetAttributes() ... }>
+		{ b.name }
+		if b.icon != nil {
+			//add icon component
+			@b.icon.Component()
+		}
+	</button>
+}
+
+templ (bg *buttonGroup) Component() {
+	<div class="uk-btn-group">
+		for _, b := range bg.items {
+			@b.Component()
+		}
+	</div>
+}

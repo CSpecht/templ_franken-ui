@@ -1,0 +1,29 @@
+package breadcrumb
+
+templ (b *breadcrumb) Component() {
+	<nav aria-label="Breadcrumb">
+		<ul class={ "uk-breadcrumb", b.GetClasses(), } { b.GetAttributes() ... }>
+			for _, element := range b.elements {
+				@element
+			}
+		</ul>
+	</nav>
+}
+
+templ (b *breadcrumb) addCrumb(name, link string, attributes ...templ.Attributes) {
+	if len(attributes) == 0 {
+		<li><a href={ templ.URL(link) }>{ name }</a></li>
+	} else {
+		<li><a href={ templ.URL(link) } { attributes[0] ... }>{ name }</a></li>
+	}
+}
+
+templ (b *breadcrumb) addDisabledCrumb(name string) {
+	<li class="uk-disabled">{ name }</li>
+}
+
+templ (b *breadcrumb) addCurrentCrumb(name string) {
+	<li>
+		<span aria-current="page">{ name }</span>
+	</li>
+}

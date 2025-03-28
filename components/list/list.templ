@@ -1,14 +1,17 @@
 package listing
 
-templ (l *list) Render() {
-	<ul class={ "uk-list", string(l.variant), l.GetClasses() } { l.GetAttributes() ... }>
+templ (l *list) Component() {
+	<ul
+		class={ "uk-list", string(l.variant), l.GetClasses() }
+		{ l.GetAttributes() ... }
+	>
 		for _, item := range l.items {
-			@item
+			@item.Component()
 		}
 	</ul>
 }
 
-templ (le *listEntry) Render() {
+templ (le *listItem) Component() {
 	<li class={ le.GetClasses() } { le.GetAttributes() ... }>
 		if le.item != nil {
 			@le.item

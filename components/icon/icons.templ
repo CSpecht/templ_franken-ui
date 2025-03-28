@@ -2,6 +2,14 @@ package icon
 
 import "strconv"
 
-templ (i *Icon) create() {
-	<uk-icon cls-custom={ i.clsCustom } icon={ i.name } stroke-width={ strconv.Itoa(i.strokeWidth) } height={ strconv.Itoa(i.height) } width={ strconv.Itoa(i.width) }></uk-icon>
+templ (i *icon) Component() {
+	<uk-icon
+		cls-custom={ i.clsCustom }
+		icon={ i.name }
+		stroke-width={ strconv.Itoa(i.strokeWidth) }
+		height={ strconv.Itoa(i.height) }
+		width={ strconv.Itoa(i.width) }
+		class={ i.GetClasses() }
+		{ i.GetAttributes() ... }
+	></uk-icon>
 }

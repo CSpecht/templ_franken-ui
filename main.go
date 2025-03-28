@@ -5,12 +5,14 @@ import (
 	"net/http"
 
 	"github.com/a-h/templ"
+	"github.com/cspecht/templ_franken-ui/components/alert"
+	"github.com/cspecht/templ_franken-ui/components/breadcrumb"
 	btn "github.com/cspecht/templ_franken-ui/components/button"
 	"github.com/cspecht/templ_franken-ui/components/divider"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 	"github.com/cspecht/templ_franken-ui/components/label"
-	"github.com/cspecht/templ_franken-ui/components/listing"
-	"github.com/cspecht/templ_franken-ui/components/navbar"
+	listing "github.com/cspecht/templ_franken-ui/components/list"
+	navbar "github.com/cspecht/templ_franken-ui/components/nav"
 	"github.com/cspecht/templ_franken-ui/components/placeholder"
 	"github.com/cspecht/templ_franken-ui/layout/skeleton"
 )
@@ -37,14 +39,13 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	comp := []templ.Component{}
 	comp = append(comp, btn.NewButton("New").Component())
 	comp = append(comp, btn.NewButton("Primary").AsPrimary().Component())
-	comp = append(comp, btn.NewButton("Icon").SetWidth(btn.W52).SetIcon(icon.NewIcon("copy").SetHeight(20).SetWidth(20).SetStroke(4)).Component())
+	comp = append(comp, btn.NewButton("Icon").SetWidth40().SetIcon(icon.NewIcon("copy").SetHeight(20).SetWidth(20).SetStroke(4)).Component())
 	comp = append(comp, btn.NewButton("Ghost").AsGhost().Component())
 	comp = append(comp, btn.NewButton("Destructive").AsDestructive().Component())
 	comp = append(comp, btn.NewButton("Text").AsText().Component())
 
 	//divider
-	comp = append(comp, divider.NewDivider().AsIcon().Component())
-	comp = append(comp, divider.NewDivider().AsVertical().Component())
+	comp = append(comp, divider.NewDivider().WithIcon().Component())
 
 	// placeholder
 	comp = append(comp, placeholder.NewPlaceholder().Component())
@@ -56,24 +57,38 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	comp = append(comp, l.Component())
 
 	// nav
-	nav := navbar.NewNavbar()
-	nav.AddItem(nav.AddNavbarEntry("Home").IsActive())
+	nav := navbar.NewNavigation()
+	nav.AsAccordion().AsPrimary()
+	nav.AddItem("Home").SetLink("#").SetIcon(icon.NewIcon("copy"))
 	nav.AddHeader("Header")
 	nav.AddDivider()
-	nav.AddItem(nav.AddNavbarEntry("Home2").SetLink("#", nil).SetIcon(icon.NewIcon("copy"), nil))
-	comp = append(comp, nav.Render())
+	nav.AddItem("Home2").Nav().AddItem("Home3")
+	subnav := nav.AddSubNav("More")
+	subnav.AddItem("Home5")
+	subnav.AddItem("Home6")
+	subsubnav := subnav.AddSubNav("SubSubNav")
+	subsubnav.AddItem("Home7")
+	subsubnav.AddItem("Home8")
+
+	comp = append(comp, nav.Component())
 
 	//list
-	list := listing.NewList().AsStripped()
-	list.AddItem(list.AddListEntry("List Entry 1"))
-	list.AddItem(list.AddListEntry("List Entry 1"))
+	list := listing.NewList().AsStriped()
+	list.AddItem("List Entry 1").List().AddItem("List Entry 2").List().AddItem("List Entry 3")
 
 	//list.AddItem(list.AddListEntry("List Entry 2"))
 	//list.AddItem(list.AddListEntry("List Entry 1"))
-	comp = append(comp, list.Render())
+	comp = append(comp, list.Component())
 
+	comp = append(comp, divider.NewDivider().Component())
+
+	comp = append(comp, alert.NewAlert("Alert").SetTitle("Title").AsCloseable().AsDestructive().Component())
 	//render fullsite
-	//skeleton.FullSite("name", comp...).Render(r.Context(), w)
+
+	bc := breadcrumb.NewBreadcrumb().AddCrumb("Home", "#").AddCrumb("Home2", "#").AddDisabledCrumb("Home3").AddCurrentCrumb("Home4")
+
+	comp = append(comp, bc.Component())
+
 	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
 
 }

@@ -1,0 +1,15 @@
+package alert
+
+templ (a *alert) Component() {
+	<div class={ "uk-alert",templ.KV("uk-alert-destructive", a.destructive), a.GetClasses(), } { a.GetAttributes() ... } data-uk-alert>
+		if a.closeable {
+			<a href class="uk-alert-close" data-uk-close></a>
+		}
+		if len(a.title) > 0 {
+			<div class="uk-alert-title">{ a.title }</div>
+		}
+		<p>
+			{ a.content }
+		</p>
+	</div>
+}

@@ -1,32 +1,29 @@
 package button
 
-type variant string
-
+// variants
 const (
-	Default     variant = "uk-btn-default"
-	Ghost       variant = "uk-btn-ghost"
-	Primary     variant = "uk-btn-primary"
-	Secondary   variant = "uk-btn-secondary"
-	Destructive variant = "uk-btn-destructive"
-	Text        variant = "uk-btn-text"
-	Link        variant = "uk-btn-link"
+	defaultVariant string = "uk-btn-default"
+	ghost          string = "uk-btn-ghost"
+	primary        string = "uk-btn-primary"
+	secondary      string = "uk-btn-secondary"
+	destructive    string = "uk-btn-destructive"
+	text           string = "uk-btn-text"
+	link           string = "uk-btn-link"
 )
 
-type size string
-
+// size
 const (
-	Xs size = "uk-btn-xs"
-	Sm size = "uk-btn-sm"
-	Md size = "uk-btn-md"
-	Lg size = "uk-btn-lg"
+	xs string = "uk-btn-xs"
+	sm string = "uk-btn-sm"
+	md string = "uk-btn-md"
+	lg string = "uk-btn-lg"
 )
 
-type width string
-
+// width
 const (
-	W40   width = "w-40"
-	W44   width = "w-44"
-	W48   width = "w-48"
-	W52   width = "w-52"
-	WFull width = "w-full"
+	w40   string = "w-40"
+	w44   string = "w-44"
+	w48   string = "w-48"
+	w52   string = "w-52"
+	wFull string = "w-full"
 )

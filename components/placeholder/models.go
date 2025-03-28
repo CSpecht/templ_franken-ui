@@ -1,32 +1,38 @@
 package placeholder
 
-import "github.com/a-h/templ"
-
+import (
+	"github.com/a-h/templ"
+	"github.com/cspecht/templ_franken-ui/components/component"
+)
 
 type placeholder struct {
+	component.C
 	alignment string
-	content []templ.Component
-	attributes templ.Attributes
+	content   []templ.Component
 }
-
 
 func NewPlaceholder(content ...templ.Component) *placeholder {
 	return &placeholder{
-		content: content,
-		alignment: string(Center),
+		content:   content,
+		alignment: center,
 	}
 }
 
-func (p *placeholder) SetAlignment(alignment alignment) *placeholder {
-	p.alignment = string(alignment)
+func (p *placeholder) AlignRight() *placeholder {
+	p.alignment = right
 	return p
 }
-func (p *placeholder) SetAttributes(attributes templ.Attributes) *placeholder {
-	p.attributes = attributes
+func (p *placeholder) AlignLeft() *placeholder {
+	p.alignment = left
+	return p
+}
+func (p *placeholder) AlignCenter() *placeholder {
+	p.alignment = center
+	return p
+}
+func (p *placeholder) SetContent(content ...templ.Component) *placeholder {
+	p.content = content
 	return p
 }
 
-func (p *placeholder) Component() templ.Component {
 
-	return p.create()
-}

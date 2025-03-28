@@ -1,8 +1,20 @@
 package icon
 
-import "github.com/a-h/templ"
+import (
+	"github.com/a-h/templ"
+	"github.com/cspecht/templ_franken-ui/components/component"
+)
 
-type Icon struct {
+type Icon interface {
+	SetStroke(width int) Icon
+	SetHeight(height int) Icon
+	SetWidth(width int) Icon
+	SetClsCustom(clsCustom string) Icon
+	Component() templ.Component
+	
+}
+type icon struct {
+	component.C
 	name        string
 	strokeWidth int
 	height      int
@@ -10,32 +22,28 @@ type Icon struct {
 	clsCustom   string
 }
 
-func NewIcon(name string) *Icon {
-	i := &Icon{name: name, strokeWidth: 2, height: 16, width: 16, clsCustom: " "}
+// Create a new icon with default values, a lucid name is required, see https://lucide.dev/
+func NewIcon(name string) Icon {
+	i := &icon{name: name, strokeWidth: 2, height: 16, width: 16, clsCustom: " "}
 	return i
 }
 
-func (i *Icon) SetStroke(width int) *Icon {
+func (i *icon) SetStroke(width int) Icon {
 	i.strokeWidth = width
 	return i
 }
 
-func (i *Icon) SetHeight(height int) *Icon {
+func (i *icon) SetHeight(height int) Icon {
 	i.height = height
 	return i
 }
 
-func (i *Icon) SetWidth(width int) *Icon {
+func (i *icon) SetWidth(width int) Icon {
 	i.width = width
 	return i
 }
 
-func (i *Icon) SetClsCustom(clsCustom string) *Icon {
+func (i *icon) SetClsCustom(clsCustom string) Icon {
 	i.clsCustom = clsCustom
 	return i
-}
-
-func (i *Icon) Component() templ.Component {
-	return i.create()
-
 }

@@ -1,100 +1,111 @@
 package button
 
 import (
-	"github.com/a-h/templ"
+	"github.com/cspecht/templ_franken-ui/components/component"
 	"github.com/cspecht/templ_franken-ui/components/icon"
-	//"github.com/cspecht/templ_franken-ui/components/icon"
 )
 
 type button struct {
-	name       string
-	classes    []string
-	attributes templ.Attributes
-	variant    variant
-	size       size
-	width      width
-	icon       *icon.Icon
-	url        string
+	component.C
+	name    string
+	variant string
+	size    string
+	width   string
+	icon    icon.Icon
 }
 
-// classes []string, attr templ.Attributes, btnVariant buttonVariant, withModifiers withModifiers, icon *icon.Icon
-// without size == default
+type buttonGroup struct {
+	component.C
+	items []*button
+}
+
+func NewButtonGroup() *buttonGroup {
+	return &buttonGroup{}
+}
+func (bg *buttonGroup) AddButton(b *button) *buttonGroup {
+	bg.items = append(bg.items, b)
+	return bg
+}
+
 func NewButton(name string) *button {
-	b := button{name: name, classes: []string{}, attributes: make(templ.Attributes), variant: Default, width: W40, icon: nil}
+	b := button{name: name,
+		variant: defaultVariant, width: w40, icon: nil}
 
 	return &b
 }
 
-func (b *button) AddClass(class string) *button {
-	b.classes = append(b.classes, class)
+func (b *button) SetSizeXs() *button {
+	b.size = xs
+	return b
+}
+func (b *button) SetSizeSm() *button {
+	b.size = sm
+	return b
+}
+func (b *button) SetSizeMd() *button {
+	b.size = md
+	return b
+}
+func (b *button) SetSizeLg() *button {
+	b.size = lg
+	return b
+}
+func (b *button) SetWidth40() *button {
+	b.width = w40
+	return b
+}
+func (b *button) SetWidth44() *button {
+	b.width = w44
+	return b
+}
+func (b *button) SetWidth48() *button {
+	b.width = w48
+	return b
+}
+func (b *button) SetWidth52() *button {
+	b.width = w52
+	return b
+}
+func (b *button) SetWidthFull() *button {
+	b.width = wFull
 	return b
 }
 
-func (b *button) AddAttr(attr templ.Attributes) *button {
-	for k, v := range b.attributes {
-		print(k, v)
-	}
-	return b
-}
-
-func (b *button) SetSize(size size) *button {
-	b.size = size
-	return b
-}
-func (b *button) SetIcon(icon *icon.Icon) *button {
+func (b *button) SetIcon(icon icon.Icon) *button {
 	b.icon = icon
-	//doesnt work!
-	//b.classes = append(b.classes, "uk-btn-icon")
-	return b
-}
 
-func (b *button) SetWidth(width width) *button {
-	b.width = width
 	return b
 }
 
 func (b *button) AsPrimary() *button {
-	b.variant = Primary
+	b.variant = primary
 	return b
 }
 
 func (b *button) AsDefault() *button {
-	b.variant = Default
+	b.variant = defaultVariant
 	return b
 }
 
 func (b *button) AsGhost() *button {
-	b.variant = Ghost
+	b.variant = ghost
 	return b
 }
 func (b *button) AsSecondary() *button {
-	b.variant = Secondary
+	b.variant = secondary
 	return b
 }
 func (b *button) AsDestructive() *button {
-	b.variant = Destructive
+	b.variant = destructive
 	return b
 }
 
 func (b *button) AsText() *button {
-	b.variant = Text
+	b.variant = text
 	return b
 }
 
-func (b *button) AsLink(url string) *button {
-	//b.url
-	b.variant = Link
+func (b *button) AsLink() *button {
+	b.variant = link
 	return b
-}
-
-func (b *button) Component() templ.Component {
-	b.classes = append(b.classes, string(b.variant))
-	b.classes = append(b.classes, string(b.size))
-	b.classes = append(b.classes, string(b.width))
-
-	if len(b.url) > 0 {
-		b.classes = append(b.classes, string(Link))
-	}
-
-	return b.create()
 }

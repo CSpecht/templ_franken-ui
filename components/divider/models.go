@@ -1,34 +1,32 @@
 package divider
 
-import "github.com/a-h/templ"
+import 	"github.com/cspecht/templ_franken-ui/components/component"
 
 type divider struct {
-	classes []string
-	variant variant
+	component.C
+	style string
+	
 }
 
 func NewDivider() *divider {
-	d := divider{classes: []string{}}
+	return  &divider{
+		style: defaultVariant,
+	}
 
-	return &d
 }
 
-func (d *divider) AsIcon() *divider {
-	d.variant = Icon
+func (d *divider) WithIcon() *divider {
+	d.style = icon
 	return d
 }
 
-func (d *divider) AsSmall() *divider {
-	d.variant = Small
+func (d *divider) Small() *divider {
+	d.style = small
 	return d
 }
 
-func (d *divider) AsVertical() *divider {
-	d.variant = Vertical
+func (d *divider) Vertical() *divider {
+	d.style = vertical
 	return d
 }
 
-func (d *divider) Component() templ.Component {
-	d.classes = append(d.classes, string(d.variant))
-	return d.create()
-}

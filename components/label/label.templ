@@ -1,6 +1,6 @@
 package label
 
-templ (l *label) create() {
+templ (l *label) Component() {
 	<span class={ "uk-label", string(l.style), l.GetClasses() } { l.GetAttributes() ... }>
 		{ l.content }
 	</span>

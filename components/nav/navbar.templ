@@ -1,0 +1,71 @@
+package nav
+
+templ (n *nav) Component() {
+	<ul class={ "uk-nav", n.variant, n.GetClasses() } { n.GetAttributes() ... }>
+		for _, item := range n.items {
+			@item.Component()
+		}
+	</ul>
+}
+
+templ (ne *navItem) Component() {
+	<li
+		class={ templ.KV("uk-active", ne.active), ne.GetClasses() }
+		{ ne.GetAttributes() ... }
+	>
+		if len(ne.link) > 0 {
+			<a href={ ne.link } { ne.linkAttributes ... }>
+				if ne.icon != nil {
+					@ne.icon.Component()
+				}
+				{ ne.name }
+			</a>
+		} else {
+			{ ne.name }
+		}
+		if ne.item != nil {
+			@ne.item
+		}
+	</li>
+}
+
+templ (hi *headerItem) Component() {
+	<li class="uk-nav-header">{ hi.name }</li>
+}
+
+templ (d *dividerItem) Component() {
+	<li class="uk-nav-divider"></li>
+}
+
+templ (nsi *navSub) Component() {
+	if nsi.parent == nil {
+		<li class="uk-parent">
+			<a href="#">
+				{ nsi.name }
+				if nsi.parentIcon {
+					<span data-uk-nav-parent-icon></span>
+				}
+			</a>
+			<ul class="uk-nav-sub">
+				for _, item := range nsi.items {
+					@item.Component()
+				}
+			</ul>
+		</li>
+	} else{
+		<li >
+			<a href="#">
+				{ nsi.name }
+				if nsi.parentIcon {
+					<span data-uk-nav-parent-icon></span>
+				}
+			</a>
+			<ul >
+				for _, item := range nsi.items {
+					@item.Component()
+				}
+			</ul>
+		</li>
+	}
+
+}

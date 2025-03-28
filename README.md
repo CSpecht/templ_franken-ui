@@ -21,11 +21,11 @@ Charts
 Components:
 
 - Accordion
-- Alert
-- Animation
-- Badge
-- Breadcrumb
-- Button
+- ~~Alert~~
+- ~~Animation~~
+- ~~Badge~~
+- ~~Breadcrumb~~
+- ~~Button~~
 - Calendar
 - Card
 - Close
