@@ -19,7 +19,7 @@ templ (b *breadcrumb) addCrumb(name, link string, attributes ...templ.Attributes
 }
 
 templ (b *breadcrumb) addDisabledCrumb(name string) {
-	<li class="uk-disabled">{ name }</li>
+	<li class="uk-disabled"><a>{ name }</a></li>
 }
 
 templ (b *breadcrumb) addCurrentCrumb(name string) {
