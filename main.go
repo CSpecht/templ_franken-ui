@@ -69,7 +69,9 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	subsubnav := subnav.AddSubNav("SubSubNav")
 	subsubnav.AddItem("Home7")
 	subsubnav.AddItem("Home8")
-
+	sb,_ := subsubnav.Parent()
+	sb.AddItem("Home9")
+	sb.Nav().AddItem("Home10")
 	comp = append(comp, nav.Component())
 
 	//list
