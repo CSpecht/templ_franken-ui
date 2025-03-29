@@ -7,14 +7,17 @@ import (
 	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/alert"
 	"github.com/cspecht/templ_franken-ui/components/breadcrumb"
+	"github.com/cspecht/templ_franken-ui/components/button"
 	btn "github.com/cspecht/templ_franken-ui/components/button"
 	"github.com/cspecht/templ_franken-ui/components/calendar"
+	"github.com/cspecht/templ_franken-ui/components/card"
 	"github.com/cspecht/templ_franken-ui/components/divider"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 	"github.com/cspecht/templ_franken-ui/components/label"
 	listing "github.com/cspecht/templ_franken-ui/components/list"
 	navbar "github.com/cspecht/templ_franken-ui/components/nav"
 	"github.com/cspecht/templ_franken-ui/components/placeholder"
+	"github.com/cspecht/templ_franken-ui/components/typography"
 	"github.com/cspecht/templ_franken-ui/layout/skeleton"
 )
 
@@ -94,6 +97,12 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	cal := calendar.NewCalendar("mycal")
 	cal.SetToday()
 	comp = append(comp, cal.Component())
+
+	card := card.NewCard()
+	card.SetTitle("Card Title").AsDestructive()
+	card.SetBody(typography.NewText("This is a card body").Component())
+	card.SetFooter(button.NewButton("Card Footer").Component())
+	comp = append(comp, card.Component())
 	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
 
 }

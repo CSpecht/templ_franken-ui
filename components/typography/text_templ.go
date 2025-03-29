@@ -29,7 +29,7 @@ func (t *text) Component() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{"uk-codespan", t.alignment, t.size, t.textStyle, t.GetClasses()}
+		var templ_7745c5c3_Var2 = []any{t.textStyle, t.alignment, t.size, t.GetClasses()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

@@ -1,7 +1,7 @@
 package typography
 
 templ (t *text) Component() {
-	<span class={ "uk-codespan", t.alignment, t.size, t.textStyle  , t.GetClasses() } { t.GetAttributes() ... }>
+	<span class={ t.textStyle , t.alignment, t.size,  t.GetClasses() } { t.GetAttributes() ... }>
 		{ t.content }
 	</span>
 }

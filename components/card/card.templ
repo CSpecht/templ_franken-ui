@@ -1,0 +1,26 @@
+package card
+
+templ (c *card) Component() {
+	<div class={ "uk-card", c.style, c.GetClasses() } { c.GetAttributes() ... }>
+		if len(c.title)>0 {
+			<div class="uk-card-header">
+				<h3 class="uk-card-title">{ c.title }</h3>
+			</div>
+		}
+		if c.header != nil {
+			<div class="uk-card-header">
+				@c.header
+			</div>
+		}
+		if c.body != nil {
+			<div class="uk-card-body">
+				@c.body
+			</div>
+		}
+		if c.footer != nil {
+			<div class="uk-card-footer">
+				@c.footer
+			</div>
+		}
+	</div>
+}
