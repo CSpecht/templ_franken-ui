@@ -11,7 +11,10 @@ type Icon interface {
 	SetWidth(width int) Icon
 	SetClsCustom(clsCustom string) Icon
 	Component() templ.Component
-	
+	SetAttributes(attributes templ.Attributes) *component.C 
+	GetAttributes() templ.Attributes
+	GetClasses() []string
+	AddClasses(styles ... string) *component.C
 }
 type icon struct {
 	component.C

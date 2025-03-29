@@ -1,0 +1,15 @@
+package video
+
+import "fmt"
+
+templ (v *video) Component() {
+	<video
+		class={ v.GetClasses() }
+		{ v.GetAttributes() ... }
+		src={ string(v.src) }
+		width={ fmt.Sprint(v.width) }
+		height={ fmt.Sprint(v.height) }
+		data-uk-responsive
+		data-uk-video={ v.getVideoAttributes()}
+	></video>
+}

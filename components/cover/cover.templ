@@ -1,0 +1,28 @@
+package cover
+
+templ (ic *imageCover) Component() {
+	<div class="uk-cover-container">
+		if ic.responsive {
+			<canvas width="" height=""></canvas>
+		}
+		<img src={ string(ic.src) } alt={ ic.alt } data-uk-cover/>
+	</div>
+}
+
+templ (vc *videoCover) Component() {
+	<div class="uk-cover-container">
+		if vc.responsive {
+			<canvas width="" height=""></canvas>
+		}
+		@vc.video.Component()
+	</div>
+}
+
+templ (vc *iframeCover) Component() {
+	<div class="uk-cover-container">
+		if vc.responsive {
+			<canvas width="" height=""></canvas>
+		}
+		<iframe src={ string(vc.src) } data-uk-cover></iframe>
+	</div>
+}
