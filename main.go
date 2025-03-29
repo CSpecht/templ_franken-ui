@@ -11,6 +11,7 @@ import (
 	btn "github.com/cspecht/templ_franken-ui/components/button"
 	"github.com/cspecht/templ_franken-ui/components/calendar"
 	"github.com/cspecht/templ_franken-ui/components/card"
+	"github.com/cspecht/templ_franken-ui/components/comment"
 	"github.com/cspecht/templ_franken-ui/components/divider"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 	"github.com/cspecht/templ_franken-ui/components/label"
@@ -103,6 +104,19 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	card.SetBody(typography.NewText("This is a card body").Component())
 	card.SetFooter(button.NewButton("Card Footer").Component())
 	comp = append(comp, card.Component())
+
+	// comment
+	com := comment.NewComment("Tyler Johnson", "2 days ago", "This is a comment")
+	com.SetAvatarImageUrl(templ.SafeURL("https://picsum.photos/200/300"))
+	com.SetAvatarAlt("Avatar").AsPrimary()
+	comp = append(comp, com.Component())
+	com2 := comment.NewComment("Tyler Johnson", "2 days ago", "This is a comment")
+	com2.SetAvatarImageUrl(templ.SafeURL("https://picsum.photos/200/300"))
+	comlist := comment.NewCommentList()
+	comlist.AddComment(com)
+	com.AddComment(com2)
+
+	comp = append(comp, comlist.Component())
 	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
 
 }

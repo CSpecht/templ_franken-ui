@@ -1,0 +1,49 @@
+package comment
+
+templ (c *comment) Component() {
+	<article
+		class={ "uk-comment" , templ.KV("uk-comment-primary",c.primary), c.GetClasses() }
+		{ c.GetAttributes() ... }
+		tabindex="-1"
+		role="comment"
+	>
+		<header class="uk-comment-header">
+			<div class="flex items-center">
+				<div class="uk-comment-avatar mr-2">
+					<img src={ string(c.avatarImageUrl) } alt={ c.avatarAlt }/>
+				</div>
+				<div class="flex-1">
+					<div class="uk-comment-title"><a href={ c.titleLink }>{ c.title }</a></div>
+					<p class="uk-comment-meta"><a href={ c.metaLink }>{ c.meta }</a></p>
+				</div>
+			</div>
+		</header>
+		<div class="uk-comment-body">
+			if len(c.text) > 0 {
+				<p>{ c.text }</p>
+			}
+			if c.body != nil {
+				@c.body
+			}
+		</div>
+	</article>
+	if c.commentlist != nil {
+		<ul>
+			for _, cc := range c.commentlist.comments {
+				<li>
+					@cc.Component()
+				</li>
+			}
+		</ul>
+	}
+}
+
+templ (cl *commentList) Component() {
+	<ul class="uk-comment-list" { cl.GetAttributes() ... }>
+		for _, c := range cl.comments {
+			<li>
+				@c.Component()
+			</li>
+		}
+	</ul>
+}
