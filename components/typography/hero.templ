@@ -1,7 +1,7 @@
 package typography
 
-templ (he *hero) create() {
-	<div class={ "mt-4", string(he.size) } { he.attributes ... }>
+templ (he *hero) Component() {
+	<div class={ "mt-4", he.size,  he.GetClasses() } { he.GetAttributes() ... }>
 		{ he.content }
 	</div>
 }

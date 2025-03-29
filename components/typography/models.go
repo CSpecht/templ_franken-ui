@@ -1,72 +1,104 @@
 package typography
 
 import (
-	"github.com/a-h/templ"
+	"github.com/cspecht/templ_franken-ui/components/component"
 )
 
 type heading struct {
-	content    string
-	size       HeadingSize
-	attributes templ.Attributes
-	alignment  Alignment
-	style      HeadingStyle
+	component.C
+	content   string
+	size      string
+	alignment string
+	style     string
 }
 
 func NewHeading(content string) *heading {
 	return &heading{
 		content: content,
-		size:    H1,
+		size:    h1,
 	}
 }
-func (h *heading) SetSize(size HeadingSize) *heading {
-	h.size = size
+func (h *heading) SizeH1() *heading {
+	h.size = h1
 	return h
 }
-func (h *heading) SetAttributes(attributes templ.Attributes) *heading {
-	h.attributes = attributes
+func (h *heading) SizeH2() *heading {
+	h.size = h2
 	return h
 }
-func (h *heading) SetAlignment(alignment Alignment) *heading {
-	h.alignment = alignment
+func (h *heading) SizeH3() *heading {
+	h.size = h3
 	return h
 }
-func (h *heading) SetHeadingStyle(style HeadingStyle) *heading {
-	h.style = style
+func (h *heading) SizeH4() *heading {
+	h.size = h4
 	return h
 }
-func (h *heading) Component() templ.Component {
-
-	return h.create()
+func (h *heading) AlignLeft() *heading {
+	h.alignment = left
+	return h
+}
+func (h *heading) AlignCenter() *heading {
+	h.alignment = center
+	return h
+}
+func (h *heading) AlignRight() *heading {
+	h.alignment = right
+	return h
+}
+func (h *heading) DividerStyle() *heading {
+	h.style = divider
+	return h
+}
+func (h *heading) LineStyle() *heading {
+	h.style = line
+	return h
+}
+func (h *heading) BulletStyle() *heading {
+	h.style = bullet
+	return h
 }
 
 type hero struct {
-	content    string
-	size       HeroSize
-	attributes templ.Attributes
+	component.C
+	content string
+	size    string
 }
 
 func NewHero(content string) *hero {
 	return &hero{
 		content: content,
-		size:    MD,
+		size:    md,
 	}
 }
-func (he *hero) SetSize(size HeroSize) *hero {
-	he.size = size
+func (he *hero) SizeSM() *hero {
+	he.size = sm
 	return he
 }
-func (he *hero) SetAttributes(attributes templ.Attributes) *hero {
-	he.attributes = attributes
+func (he *hero) SizeMD() *hero {
+	he.size = md
 	return he
 }
-func (he *hero) Component() templ.Component {
-
-	return he.create()
+func (he *hero) SizeLG() *hero {
+	he.size = lg
+	return he
+}
+func (he *hero) SizeXL() *hero {
+	he.size = xl
+	return he
+}
+func (he *hero) Size2XL() *hero {
+	he.size = twoXL
+	return he
+}
+func (he *hero) Size3XL() *hero {
+	he.size = threeXL
+	return he
 }
 
 type paragraph struct {
-	content    string
-	attributes templ.Attributes
+	component.C
+	content string
 }
 
 func NewParagraph(content string) *paragraph {
@@ -74,17 +106,10 @@ func NewParagraph(content string) *paragraph {
 		content: content,
 	}
 }
-func (p *paragraph) SetAttributes(attributes templ.Attributes) *paragraph {
-	p.attributes = attributes
-	return p
-}
-func (p *paragraph) Component() templ.Component {
-	return p.create()
-}
 
 type blockquote struct {
-	content    string
-	attributes templ.Attributes
+	component.C
+	content string
 }
 
 func NewBlockquote(content string) *blockquote {
@@ -92,17 +117,10 @@ func NewBlockquote(content string) *blockquote {
 		content: content,
 	}
 }
-func (b *blockquote) SetAttributes(attributes templ.Attributes) *blockquote {
-	b.attributes = attributes
-	return b
-}
-func (b *blockquote) Component() templ.Component {
-	return b.create()
-}
 
 type inlineCode struct {
-	content    string
-	attributes templ.Attributes
+	component.C
+	content string
 }
 
 func NewInlineCode(content string) *inlineCode {
@@ -110,44 +128,63 @@ func NewInlineCode(content string) *inlineCode {
 		content: content,
 	}
 }
-func (ic *inlineCode) SetAttributes(attributes templ.Attributes) *inlineCode {
-	ic.attributes = attributes
-	return ic
-}
-func (ic *inlineCode) Component() templ.Component {
-	return ic.create()
-}
 
 type text struct {
-	content    string
-	attributes templ.Attributes
-	alignment  Alignment
-	size       TextSize
-	textStyle  TextStyle
+	component.C
+	content   string
+	alignment string
+	size      string
+	textStyle string
 }
-
 func NewText(content string) *text {
 	return &text{
 		content: content,
-		size:    Default,
+		size:    defaultText,
 	}
 }
-func (t *text) SetAlignment(alignment Alignment) *text {
-	t.alignment = alignment
+func (t *text) AlignLeft() *text {
+	t.alignment = left
 	return t
 }
-func (t *text) SetSize(size TextSize) *text {
-	t.size = size
+func (t *text) AlignCenter() *text {
+	t.alignment = center
 	return t
 }
-func (t *text) SetTextStyle(style TextStyle) *text {
-	t.textStyle = style
+func (t *text) AlignRight() *text {
+	t.alignment = right
 	return t
 }
-func (t *text) SetAttributes(attributes templ.Attributes) *text {
-	t.attributes = attributes
+func (t *text) SizeSmall() *text {
+	t.size = small
 	return t
 }
-func (t *text) Component() templ.Component {
-	return t.create()
+func (t *text) SizeMedium() *text {
+	t.size = medium
+	return t
 }
+func (t *text) SizeLarge() *text {
+	t.size = large
+	return t
+}
+func (t *text) SizeDefault() *text {
+	t.size = defaultText
+	return t
+}
+
+func (t *text) Lead() *text {
+	t.textStyle = lead
+	return t
+}
+func (t *text) Meta() *text {
+	t.textStyle = meta
+	return t
+}
+func (t *text) Truncate() *text {
+	t.textStyle = truncate
+	return t
+}
+func (t *text) Breaks() *text {
+	t.textStyle = breaks
+	return t
+}
+

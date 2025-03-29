@@ -1,53 +1,49 @@
 package typography
 
-type HeadingSize string
-
+// heading sizes
 const (
-	H1 HeadingSize = "uk-h1"
-	H2 HeadingSize = "uk-h2"
-	H3 HeadingSize = "uk-h3"
-	H4 HeadingSize = "uk-h4"
+	h1 string = "uk-h1"
+	h2 string = "uk-h2"
+	h3 string = "uk-h3"
+	h4 string = "uk-h4"
 )
 
-type HeadingStyle string
-
+// heading styles
 const (
-	Divider HeadingStyle = "uk-heading-divider"
-	Line    HeadingStyle = "uk-heading-line"
-	Bullet  HeadingStyle = "uk-heading-bullet"
+	divider string = "uk-heading-divider"
+	line    string = "uk-heading-line"
+	bullet  string = "uk-heading-bullet"
 )
 
-type HeroSize string
-
+// hero sizes
 const (
-	SM      HeroSize = "uk-hero-sm"
-	MD      HeroSize = "uk-hero-md"
-	LG      HeroSize = "uk-hero-lg"
-	XL      HeroSize = "uk-hero-xl"
-	TwoXL   HeroSize = "uk-hero-2xl"
-	ThreeXL HeroSize = "uk-hero-3xl"
+	sm      string = "uk-hero-sm"
+	md      string = "uk-hero-md"
+	lg      string = "uk-hero-lg"
+	xl      string = "uk-hero-xl"
+	twoXL   string = "uk-hero-2xl"
+	threeXL string = "uk-hero-3xl"
 )
 
-type Alignment string
-
+// text alignment
 const (
-	Left   Alignment = "uk-text-left"
-	Center Alignment = "text-center"
-	Right  Alignment = "uk-text-right"
+	left   string = "uk-text-left"
+	center string = "text-center"
+	right  string = "uk-text-right"
 )
 
-type TextSize string
+// text size
 const (
-	Small TextSize = "uk-text-sm"
-	Medium TextSize = "uk-text-md"
-	Large TextSize = "uk-text-lg"
-	Default TextSize = "uk-text-base"
+	small   string = "uk-text-sm"
+	medium  string = "uk-text-md"
+	large   string = "uk-text-lg"
+	defaultText string = "uk-text-base"
 )
 
-type TextStyle string
+// text style
 const (
-	Lead TextStyle = "uk-text-lead"
-	Meta TextStyle = "uk-text-meta"
-	Truncate TextStyle = "uk-text-truncate"
-	Break TextStyle = "uk-text-break"
+	lead     string = "uk-text-lead"
+	meta     string = "uk-text-meta"
+	truncate string = "uk-text-truncate"
+	breaks    string = "uk-text-break"
 )
