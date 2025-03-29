@@ -8,6 +8,7 @@ import (
 	"github.com/cspecht/templ_franken-ui/components/alert"
 	"github.com/cspecht/templ_franken-ui/components/breadcrumb"
 	btn "github.com/cspecht/templ_franken-ui/components/button"
+	"github.com/cspecht/templ_franken-ui/components/calendar"
 	"github.com/cspecht/templ_franken-ui/components/divider"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 	"github.com/cspecht/templ_franken-ui/components/label"
@@ -69,7 +70,7 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	subsubnav := subnav.AddSubNav("SubSubNav")
 	subsubnav.AddItem("Home7")
 	subsubnav.AddItem("Home8")
-	sb,_ := subsubnav.Parent()
+	sb, _ := subsubnav.Parent()
 	sb.AddItem("Home9")
 	sb.Nav().AddItem("Home10")
 	comp = append(comp, nav.Component())
@@ -90,7 +91,9 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	bc := breadcrumb.NewBreadcrumb().AddCrumb("Home", "#").AddCrumb("Home2", "#").AddDisabledCrumb("Home3").AddCurrentCrumb("Home4")
 
 	comp = append(comp, bc.Component())
-
+	cal := calendar.NewCalendar("mycal")
+	cal.SetToday()
+	comp = append(comp, cal.Component())
 	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
 
 }

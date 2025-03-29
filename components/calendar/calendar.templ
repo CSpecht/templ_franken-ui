@@ -1,0 +1,9 @@
+package calendar
+
+templ (c *calendar) Component() {
+	<div class="flex justify-center">
+		<div class="uk-rounded uk-shadow border border-border p-3">
+			<uk-calendar name={ c.name } class={ c.GetClasses() } { c.GetAttributes() ... }></uk-calendar>
+		</div>
+	</div>
+}
