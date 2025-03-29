@@ -13,6 +13,7 @@ import (
 	"github.com/cspecht/templ_franken-ui/components/card"
 	"github.com/cspecht/templ_franken-ui/components/comment"
 	"github.com/cspecht/templ_franken-ui/components/divider"
+	"github.com/cspecht/templ_franken-ui/components/dotnav"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 	"github.com/cspecht/templ_franken-ui/components/label"
 	listing "github.com/cspecht/templ_franken-ui/components/list"
@@ -117,6 +118,14 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	com.AddComment(com2)
 
 	comp = append(comp, comlist.Component())
+
+	// dotnav
+	dotnav := dotnav.NewDotnav()
+	dotnav.SetVertical()
+	dotnav.AddItem("Home").Active()
+	dotnav.AddItem("Home2")
+	dotnav.AddItem("Home3")
+	comp = append(comp, dotnav.Component())
 	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
 
 }

@@ -1,0 +1,15 @@
+package drop
+
+templ (d *drop) Component() {
+	<div class={ "uk-inline" ,d.GetClasses() } { d.GetAttributes() ... }>
+
+		@d.triggerComponent.Component()
+		<div data-uk-drop={ d.getCustomParameters()}>
+			@d.targetComponent
+		</div>
+	</div>
+}
+
+templ (d *drop) createParentIcon() {
+	<span uk-drop-parent-icon></span>
+}

@@ -1,0 +1,15 @@
+package dotnav
+
+templ (d *dotnav) Component() {
+	<ul class={ "uk-dotnav", templ.KV(d.vertical,vertical), d.GetClasses() } { d.GetAttributes() ... }>
+		for _, item := range d.items {
+            @item.Component()
+        }
+	</ul>
+}
+
+templ (di *dotnavItem) Component() {
+	<li class={ templ.KV(di.active,"uk-active"), di.GetClasses() } >
+		<a { di.GetAttributes() ... }>{ di.name }</a>
+	</li>
+}

@@ -1,6 +1,7 @@
 package button
 
 import (
+	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/component"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 )
@@ -12,6 +13,7 @@ type button struct {
 	size    string
 	width   string
 	icon    icon.Icon
+	innerComponents []templ.Component
 }
 
 type buttonGroup struct {
@@ -33,7 +35,10 @@ func NewButton(name string) *button {
 
 	return &b
 }
+func (b *button) AddInnerComponent(comp templ.Component)  {
+	b.innerComponents = append(b.innerComponents, comp)
 
+}
 func (b *button) SetSizeXs() *button {
 	b.size = xs
 	return b
