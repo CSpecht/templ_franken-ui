@@ -1,0 +1,32 @@
+package accordion
+
+templ (a *accordion) Component() {
+	<ul data-uk-accordion={ a.getParameters() } class={ "uk-accordion", a.GetClasses() } { a.GetAttributes() ... }>
+		for _, a := range a.items {
+            @a.Component()
+        }
+	</ul>
+}
+
+templ (ai *accordionItem) Component() {
+	<li class={ templ.KV("uk-open",ai.open), ai.GetClasses() } { ai.GetAttributes() ... }>
+		<a class="uk-accordion-title" href>
+			{ ai.title }
+			if ai.icon {
+				<span class="uk-accordion-icon">
+					<uk-icon icon="chevron-down"></uk-icon>
+				</span>
+			}
+		</a>
+		<div class="uk-accordion-content">
+			if len(ai.text)>0 {
+				<p>
+					{ ai.text }
+				</p>
+			}
+			if ai.component != nil {
+				@ai.component
+			}
+		</div>
+	</li>
+}

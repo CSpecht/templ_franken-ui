@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/a-h/templ"
+	"github.com/cspecht/templ_franken-ui/components/accordion"
 	"github.com/cspecht/templ_franken-ui/components/alert"
 	"github.com/cspecht/templ_franken-ui/components/breadcrumb"
 	"github.com/cspecht/templ_franken-ui/components/button"
@@ -126,6 +127,11 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	dotnav.AddItem("Home2")
 	dotnav.AddItem("Home3")
 	comp = append(comp, dotnav.Component())
+
+	// accordion
+	acc := accordion.NewAccordion()
+	acc.AddItem("Item 1", "This is the content of item 1").Accordion().AddItem("Item 2", "This is the content of item 2").IsOpen().Accordion().AddItem("Item 3", "This is the content of item 3")
+	comp = append(comp, acc.Component())
 	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
 
 }

@@ -7,7 +7,10 @@ templ (b *button) Component() {
 			//add icon component
 			@b.icon.Component()
 		}
-		... @b.innerComponents
+		for _, c := range b.innerComponents {
+			@c
+		}
+		
 	</button>
 }
 

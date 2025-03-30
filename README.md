@@ -20,7 +20,7 @@ Charts
 
 Components:
 
-- Accordion
+- ~~Accordion~~
 - ~~Alert~~
 - ~~Animation~~
 - ~~Badge~~
