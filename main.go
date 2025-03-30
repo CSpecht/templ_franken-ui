@@ -15,6 +15,7 @@ import (
 	"github.com/cspecht/templ_franken-ui/components/comment"
 	"github.com/cspecht/templ_franken-ui/components/divider"
 	"github.com/cspecht/templ_franken-ui/components/dotnav"
+	"github.com/cspecht/templ_franken-ui/components/dropdown"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 	"github.com/cspecht/templ_franken-ui/components/label"
 	listing "github.com/cspecht/templ_franken-ui/components/list"
@@ -132,6 +133,10 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	acc := accordion.NewAccordion()
 	acc.AddItem("Item 1", "This is the content of item 1").Accordion().AddItem("Item 2", "This is the content of item 2").IsOpen().Accordion().AddItem("Item 3", "This is the content of item 3")
 	comp = append(comp, acc.Component())
+
+	dropDownButton := button.NewButton("Dropdown").AsPrimary()
+	dropdwn := dropdown.NewDropdown(dropDownButton.Component(), nav)
+	comp = append(comp, dropdwn.Component())
 	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
 
 }

@@ -1,0 +1,8 @@
+package dropdown
+
+templ (d *dropdown) Component() {
+	@d.triggerComponent
+	<div class="uk-drop uk-dropdown min-w-72" data-uk-dropdown>
+		@d.navComponent.Component()
+	</div>
+}

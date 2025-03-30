@@ -7,8 +7,23 @@ import (
 	"github.com/cspecht/templ_franken-ui/components/component"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 )
-
 // TODO: Subtitle, Primary Modifier, etc some testing
+type Nav interface{
+	AsPrimary() *nav
+	AsSecondary() *nav
+	AddItem(name string) *navItem
+	AddHeader(name string) *nav
+	AddDivider() *nav
+	AddSubNav(name string) *navSub
+	AsAccordion() *nav
+	AllowMultipleOpen() *nav
+	Component() templ.Component
+	SetAttributes(attributes templ.Attributes) *component.C 
+	GetAttributes() templ.Attributes
+	GetClasses() []string
+	AddClasses(styles ... string) *component.C
+}
+
 type item interface {
 	Component() templ.Component
 }
