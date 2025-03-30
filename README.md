@@ -36,7 +36,7 @@ Components:
 - ~~Divider~~
 - ~~Dotnav~~
 - ~~Drop~~
-- Dropdown
+- ~~Dropdown~~
 - Filter
 - ~~Icon~~
 - Image

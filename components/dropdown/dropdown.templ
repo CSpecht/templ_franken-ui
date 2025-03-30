@@ -2,7 +2,7 @@ package dropdown
 
 templ (d *dropdown) Component() {
 	@d.triggerComponent
-	<div class="uk-drop uk-dropdown min-w-72" data-uk-dropdown>
+	<div class="uk-drop uk-dropdown min-w-72" data-uk-dropdown={ d.getCustomParameters() }>
 		@d.navComponent.Component()
 	</div>
 }
