@@ -1,0 +1,18 @@
+package leader
+
+templ (l *leader) Component() {
+	<div class={ "flex gap-x-2", l.GetClasses() } { l.GetAttributes() ... }>
+		<div class="flex-1" data-uk-leader={ l.getCustomParameters() }>
+			{ l.leftText }
+			if l.leftComponent != nil {
+				@l.leftComponent
+			}
+		</div>
+		<div>
+			{ l.rightText }
+			if l.rightComponent != nil {
+				@l.rightComponent
+			}
+		</div>
+	</div>
+}

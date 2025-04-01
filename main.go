@@ -18,6 +18,7 @@ import (
 	"github.com/cspecht/templ_franken-ui/components/dropdown"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 	"github.com/cspecht/templ_franken-ui/components/label"
+	"github.com/cspecht/templ_franken-ui/components/leader"
 	listing "github.com/cspecht/templ_franken-ui/components/list"
 	navbar "github.com/cspecht/templ_franken-ui/components/nav"
 	"github.com/cspecht/templ_franken-ui/components/placeholder"
@@ -137,6 +138,11 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	dropDownButton := button.NewButton("Dropdown").AsPrimary()
 	dropdwn := dropdown.NewDropdown(dropDownButton.Component(), nav)
 	comp = append(comp, dropdwn.Component())
+
+	// leader
+	leader := leader.NewLeader("Chicken Mc Nuggets", "Trölf.Fünfizig")
+	leader.SetFillCharacter("#")
+	comp = append(comp, leader.Component())
 	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
 
 }
