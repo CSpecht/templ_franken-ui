@@ -22,8 +22,12 @@ import (
 	listing "github.com/cspecht/templ_franken-ui/components/list"
 	navbar "github.com/cspecht/templ_franken-ui/components/nav"
 	"github.com/cspecht/templ_franken-ui/components/placeholder"
+	"github.com/cspecht/templ_franken-ui/components/scroll"
 	"github.com/cspecht/templ_franken-ui/components/typography"
-	"github.com/cspecht/templ_franken-ui/layout/skeleton"
+
+	. "maragu.dev/gomponents"
+
+	. "maragu.dev/gomponents/html"
 )
 
 func main() {
@@ -143,6 +147,9 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	leader := leader.NewLeader("Chicken Mc Nuggets", "Trölf.Fünfizig")
 	leader.SetFillCharacter("#")
 	comp = append(comp, leader.Component())
-	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
+	scr := scroll.NewScroll("target", Button(Text("Scooll down"))).WithOffset(100)
+
+	//templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
+	scr.Render(w)
 
 }
