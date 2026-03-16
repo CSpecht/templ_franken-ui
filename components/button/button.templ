@@ -1,11 +1,11 @@
 package button
 
-templ (b *button) Component() {
+templ (b *button) component() {
 	<button class={ "uk-btn", b.variant,b.size,b.width, b.GetClasses(), } { b.GetAttributes() ... }>
 		{ b.name }
 		if b.icon != nil {
 			//add icon component
-			@b.icon.Component()
+			@b.icon
 		}
 		for _, c := range b.innerComponents {
 			@c
@@ -14,10 +14,10 @@ templ (b *button) Component() {
 	</button>
 }
 
-templ (bg *buttonGroup) Component() {
+templ (bg *buttonGroup) component() {
 	<div class="uk-btn-group">
 		for _, b := range bg.items {
-			@b.Component()
+			@b.component()
 		}
 	</div>
 }

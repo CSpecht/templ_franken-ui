@@ -1,5 +1,5 @@
 package divider
 
-templ (d *divider) Component() {
+templ (d *divider) component() {
 	<hr class={ string(d.style), d.GetClasses(), } { d.GetAttributes() ... } />
 }

@@ -1,0 +1,7 @@
+package tooltip
+
+templ (t *tooltip) component() {
+	<div class={ t.GetClasses(), } { t.GetAttributes() ... } data-uk-tooltip={ t.getOptions() }>
+	@t.content
+	</div>
+}

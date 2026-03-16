@@ -2,7 +2,7 @@ package video
 
 import "fmt"
 
-templ (v *video) Component() {
+templ (v *video) component() {
 	<video
 		class={ v.GetClasses() }
 		{ v.GetAttributes() ... }

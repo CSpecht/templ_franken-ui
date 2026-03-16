@@ -1,6 +1,6 @@
 package leader
 
-templ (l *leader) Component() {
+templ (l *leader) component() {
 	<div class={ "flex gap-x-2", l.GetClasses() } { l.GetAttributes() ... }>
 		<div class="flex-1" data-uk-leader={ l.getCustomParameters() }>
 			{ l.leftText }

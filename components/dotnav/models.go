@@ -1,17 +1,23 @@
 package dotnav
 
-import "github.com/cspecht/templ_franken-ui/components/component"
+import (
+	"context"
+	"io"
+
+	"github.com/cspecht/templ_franken-ui/components/component"
+)
 
 type dotnav struct {
 	component.C
-	items []*dotnavItem
+	items    []*dotnavItem
 	vertical bool
 }
 type dotnavItem struct {
 	component.C
-	name string
+	name   string
 	active bool
 }
+
 func NewDotnav() *dotnav {
 	return &dotnav{}
 }
@@ -24,6 +30,11 @@ func (di *dotnavItem) Active() *dotnavItem {
 	di.active = true
 	return di
 }
+func (di *dotnavItem) Render(ctx context.Context, w io.Writer) error {
+
+	return di.component().Render(ctx, w)
+}
+
 func (di *dotnavItem) Inactive() *dotnavItem {
 	di.active = false
 	return di
@@ -38,4 +49,9 @@ func (d *dotnav) SetHorizontal() *dotnav {
 }
 func (d *dotnav) GetItems() []*dotnavItem {
 	return d.items
+}
+
+func (d *dotnav) Render(ctx context.Context, w io.Writer) error {
+
+	return d.component().Render(ctx, w)
 }

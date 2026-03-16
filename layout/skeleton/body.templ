@@ -1,9 +1,15 @@
 package skeleton
 
 templ Body(components []templ.Component) {
-	<body { bodyAttributes ... }>
+	<body { bodyAttributes ... } class="bg-background font-geist-sans text-foreground antialiased">
+	<div
+    class="flex min-h-svh items-center justify-center p-4 md:bg-muted md:p-10"
+  >
+    <div class="w-full max-w-md">
 		for _, c := range components {
 			@c
 		}
+    </div>
+  </div>
 	</body>
 }

@@ -1,6 +1,6 @@
 package typography
 
-templ (ic *inlineCode) Component() {
+templ (ic *inlineCode) component() {
 	<code class={ "uk-codespan"  , ic.GetClasses() } { ic.GetAttributes() ... }>
 		{ ic.content }
 	</code>

@@ -1,6 +1,9 @@
 package listing
 
 import (
+	"context"
+	"io"
+
 	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/component"
 )
@@ -90,4 +93,9 @@ func (l *list) HyphenStyle() *list {
 func (l *list) DefaultStyle() *list {
 	l.style = ""
 	return l
+}
+
+func (l *list) Render(ctx context.Context, w io.Writer) error{
+
+	return l.Component().Render(ctx,w)
 }

@@ -1,14 +1,17 @@
 package nav
 
 import (
+	"context"
 	"errors"
+	"io"
 
 	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/component"
 	"github.com/cspecht/templ_franken-ui/components/icon"
 )
+
 // TODO: Subtitle, Primary Modifier, etc some testing
-type Nav interface{
+type Nav interface {
 	AsPrimary() *nav
 	AsSecondary() *nav
 	AddItem(name string) *navItem
@@ -17,20 +20,22 @@ type Nav interface{
 	AddSubNav(name string) *navSub
 	AsAccordion() *nav
 	AllowMultipleOpen() *nav
-	Component() templ.Component
-	SetAttributes(attributes templ.Attributes) *component.C 
+
+	SetAttributes(attributes templ.Attributes) *component.C
 	GetAttributes() templ.Attributes
 	GetClasses() []string
-	AddClasses(styles ... string) *component.C
+	SetClasses(styles ...string) *component.C
+	Render(ctx context.Context, w io.Writer) error
 }
 
 type item interface {
-	Component() templ.Component
+	Render(ctx context.Context, w io.Writer) error 
+
 }
 type nav struct {
 	component.C
-	variant string
-	items   []item
+	variant   string
+	items     []item
 	accordion bool
 }
 
@@ -63,7 +68,7 @@ func (n *nav) AddItem(name string) *navItem {
 	n.items = append(n.items, e)
 	return e
 }
-func (n *nav) AsAccordion()*nav{
+func (n *nav) AsAccordion() *nav {
 	n.accordion = true
 	att := n.C.GetAttributes()
 	if att == nil {
@@ -82,6 +87,11 @@ func (n *nav) AllowMultipleOpen() *nav {
 	n.C.SetAttributes(att)
 	return n
 }
+func (n *nav) Render(ctx context.Context, w io.Writer) error {
+
+	return n.component().Render(ctx, w)
+}
+
 func (ne *navItem) Nav() *nav {
 	return ne.nav
 }
@@ -89,6 +99,11 @@ func (ne *navItem) Nav() *nav {
 type headerItem struct {
 	component.C
 	name string
+}
+
+func (h *headerItem) Render(ctx context.Context, w io.Writer) error {
+
+	return h.component().Render(ctx, w)
 }
 
 func (n *nav) AddHeader(name string) *nav {
@@ -101,6 +116,11 @@ type dividerItem struct {
 	component.C
 }
 
+func (d *dividerItem) Render(ctx context.Context, w io.Writer) error {
+
+	return d.component().Render(ctx, w)
+}
+
 func (n *nav) AddDivider() *nav {
 	n.items = append(n.items, &dividerItem{})
 	return n
@@ -109,6 +129,10 @@ func (n *nav) AddDivider() *nav {
 func (ne *navItem) IsActive() *navItem {
 	ne.active = true
 	return ne
+}
+func (n *navItem) Render(ctx context.Context, w io.Writer) error {
+
+	return n.component().Render(ctx, w)
 }
 
 func (ne *navItem) SetLink(link templ.SafeURL, attributes ...templ.Attributes) *navItem {
@@ -130,11 +154,16 @@ func (ne *navItem) SetIcon(icon icon.Icon, attributes ...templ.Attributes) *navI
 
 type navSub struct {
 	component.C
-	name    string
-	mainNav *nav
-	parent  *navSub
-	items   []item
+	name       string
+	mainNav    *nav
+	parent     *navSub
+	items      []item
 	parentIcon bool
+}
+
+func (ns *navSub) Render(ctx context.Context, w io.Writer) error {
+
+	return ns.component().Render(ctx, w)
 }
 
 func (n *nav) AddSubNav(name string) *navSub {
@@ -144,7 +173,7 @@ func (n *nav) AddSubNav(name string) *navSub {
 }
 func (ne *navSub) SetParentIcon() *navSub {
 
-	ne.parentIcon = true	
+	ne.parentIcon = true
 	return ne
 }
 func (ne *navSub) Nav() *nav {

@@ -1,14 +1,14 @@
 package accordion
 
-templ (a *accordion) Component() {
+templ (a *accordion) component() {
 	<ul data-uk-accordion={ a.getParameters() } class={ "uk-accordion", a.GetClasses() } { a.GetAttributes() ... }>
 		for _, a := range a.items {
-            @a.Component()
-        }
+			@a.component()
+		}
 	</ul>
 }
 
-templ (ai *accordionItem) Component() {
+templ (ai *accordionItem) component() {
 	<li class={ templ.KV("uk-open",ai.open), ai.GetClasses() } { ai.GetAttributes() ... }>
 		<a class="uk-accordion-title" href>
 			{ ai.title }
@@ -24,8 +24,8 @@ templ (ai *accordionItem) Component() {
 					{ ai.text }
 				</p>
 			}
-			if ai.component != nil {
-				@ai.component
+			if ai.comp !=nil {
+				@ai.comp
 			}
 		</div>
 	</li>

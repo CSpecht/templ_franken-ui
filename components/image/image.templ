@@ -1,0 +1,16 @@
+package image
+
+templ (i *image) component() {
+	<div
+		data-src={ i.dataSrc }
+		sources={ i.getSources() }
+        sizes={ i.sizes }
+		data-uk-img={ i.getParameters()}
+		class={ i.GetClasses() }
+		{ i.GetAttributes() ... }
+	>
+    if i.content != nil {
+		@i.content
+    }
+	</div>
+}

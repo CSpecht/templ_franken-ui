@@ -1,15 +1,19 @@
 package divider
 
-import 	"github.com/cspecht/templ_franken-ui/components/component"
+import (
+	"context"
+	"io"
+
+	"github.com/cspecht/templ_franken-ui/components/component"
+)
 
 type divider struct {
 	component.C
 	style string
-	
 }
 
 func NewDivider() *divider {
-	return  &divider{
+	return &divider{
 		style: defaultVariant,
 	}
 
@@ -30,3 +34,7 @@ func (d *divider) Vertical() *divider {
 	return d
 }
 
+func (d *divider) Render(ctx context.Context, w io.Writer) error {
+
+	return d.component().Render(ctx, w)
+}

@@ -1,6 +1,8 @@
 package calendar
 
 import (
+	"context"
+	"io"
 	"strings"
 	"time"
 
@@ -124,4 +126,8 @@ func (c *calendar) AddCustomClasses(classes ...string) {
 	}
 	attr["cls-custom"] = class
 	c.SetAttributes(attr)
+}
+func (c *calendar) Render(ctx context.Context, w io.Writer) error {
+
+	return c.component().Render(ctx, w)
 }

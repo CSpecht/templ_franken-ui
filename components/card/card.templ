@@ -1,24 +1,24 @@
 package card
 
-templ (c *card) Component() {
+templ (c *card) component() {
 	<div class={ "uk-card", c.style, c.GetClasses() } { c.GetAttributes() ... }>
 		if len(c.title)>0 {
-			<div class="uk-card-header">
-				<h3 class="uk-card-title">{ c.title }</h3>
+			<div class="uk-card-header" { c.headerAttributes ... }>
+				<h3 class="uk-card-title" { c.titleAttributes ... }>{ c.title }</h3>
 			</div>
 		}
 		if c.header != nil {
-			<div class="uk-card-header">
+			<div class="uk-card-header" { c.headerAttributes ... }>
 				@c.header
 			</div>
 		}
 		if c.body != nil {
-			<div class="uk-card-body">
+			<div class="uk-card-body" { c.bodyAttributes ... }>
 				@c.body
 			</div>
 		}
 		if c.footer != nil {
-			<div class="uk-card-footer">
+			<div class="uk-card-footer" { c.footerAttributes ... }>
 				@c.footer
 			</div>
 		}

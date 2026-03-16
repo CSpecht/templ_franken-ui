@@ -1,6 +1,6 @@
 package placeholder
 
-templ (p *placeholder) Component() {
+templ (p *placeholder) component() {
 	<div class={ "uk-placeholder", p.alignment, p.GetClasses(), } { p.GetAttributes() ... }>
 		for _, c := range p.content {
 			@c

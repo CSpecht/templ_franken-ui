@@ -1,6 +1,6 @@
 package comment
 
-templ (c *comment) Component() {
+templ (c *comment) component() {
 	<article
 		class={ "uk-comment" , templ.KV("uk-comment-primary",c.primary), c.GetClasses() }
 		{ c.GetAttributes() ... }
@@ -31,18 +31,18 @@ templ (c *comment) Component() {
 		<ul>
 			for _, cc := range c.commentlist.comments {
 				<li>
-					@cc.Component()
+					@cc.component()
 				</li>
 			}
 		</ul>
 	}
 }
 
-templ (cl *commentList) Component() {
+templ (cl *commentList) component() {
 	<ul class="uk-comment-list" { cl.GetAttributes() ... }>
 		for _, c := range cl.comments {
 			<li>
-				@c.Component()
+				@c.component()
 			</li>
 		}
 	</ul>

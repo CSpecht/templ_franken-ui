@@ -1,0 +1,349 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.18.0/dist/css/uikit.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.18.0/dist/js/uikit.min.js"></script>
+
+<script type="module">
+ import { LitElement, html, css } from 'https://unpkg.com/lit@3/index.js?module';
+
+class UIWeekPicker extends LitElement {
+
+  static formAssociated = true;
+
+  static properties = {
+    value: { type: String, reflect: true },
+    name: { type: String },
+    min: { type: String },
+    max: { type: String },
+    required: { type: Boolean, reflect: true },
+    locale: { type: String },
+
+    _open: { state: true },
+    _year: { state: true },
+    _focusedWeek: { state: true }
+  };
+
+  constructor() {
+    super();
+    this._internals = this.attachInternals();
+
+    const today = new Date();
+    this.locale = navigator.language;
+    this._year = today.getFullYear();
+    this.value = this._getISOWeekString(today);
+    this._focusedWeek = this.value;
+    this._open = false;
+  }
+
+  /* =========================
+     STYLES
+  ========================== */
+
+  static styles = css`
+    :host {
+      display: inline-block;
+      position: relative;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .trigger {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.65rem 0.9rem;
+      border: 1px solid #e4e4e7;
+      border-radius: 0.6rem;
+      background: white;
+      min-height: 44px;
+      cursor: pointer;
+    }
+
+    .trigger:focus {
+      outline: 2px solid #2563eb;
+    }
+
+    .popover {
+      position: absolute;
+      z-index: 1000;
+      margin-top: 6px;
+      width: 260px;
+      max-height: 320px;
+      overflow-y: auto;
+      background: white;
+      border: 1px solid #e4e4e7;
+      border-radius: 0.8rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+      scroll-behavior: smooth;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem;
+      border-bottom: 1px solid #f1f1f3;
+      font-weight: 500;
+    }
+
+    .week {
+      padding: 0.75rem;
+      min-height: 44px;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      border-radius: 0.5rem;
+    }
+
+    .week:hover {
+      background: #f4f4f5;
+    }
+
+    .selected {
+      background: #111827;
+      color: white;
+    }
+
+    .focused {
+      outline: 2px solid #2563eb;
+    }
+
+    .disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    @media (max-width: 640px) {
+      .popover {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-height: 60vh;
+        border-radius: 1rem 1rem 0 0;
+      }
+    }
+  `;
+
+  /* =========================
+     RENDER
+  ========================== */
+
+  render() {
+    return html`
+      <div
+        class="trigger"
+        tabindex="0"
+        role="combobox"
+        aria-expanded=${this._open}
+        @click=${this._toggle}
+        @keydown=${this._onTriggerKeyDown}
+      >
+        ${this.value || 'Select week'}
+        <span uk-icon="icon: calendar; ratio: 0.8"></span>
+      </div>
+
+      ${this._open ? html`
+        <div
+          class="popover"
+          role="listbox"
+          @keydown=${this._onListKeyDown}
+          ${el => this._scrollContainer = el}
+        >
+          <div class="header">
+            <button @click=${() => this._changeYear(-1)}>‹</button>
+            <span>${this._year}</span>
+            <button @click=${() => this._changeYear(1)}>›</button>
+          </div>
+          ${this._renderWeeks()}
+        </div>
+      ` : ''}
+    `;
+  }
+
+  /* =========================
+     WEEK RENDERING
+  ========================== */
+
+  _renderWeeks() {
+    const total = this._weeksInYear(this._year);
+    const today = this._getISOWeekString(new Date());
+
+    return Array.from({ length: total }, (_, i) => {
+      const w = i + 1;
+      const weekString = `${this._year}-W${String(w).padStart(2, '0')}`;
+      const { start, end } = this._getWeekRange(this._year, w);
+
+      const disabled =
+        (this.min && weekString < this.min) ||
+        (this.max && weekString > this.max) ||
+        (this.isWeekDisabled && this.isWeekDisabled(weekString, start, end));
+
+      return html`
+        <div
+          class="week
+            ${this.value === weekString ? 'selected' : ''}
+            ${this._focusedWeek === weekString ? 'focused' : ''}
+            ${disabled ? 'disabled' : ''}"
+          role="option"
+          aria-selected=${this.value === weekString}
+          @click=${() => !disabled && this._selectWeek(weekString)}
+        >
+          <span><strong>${this._weekLabel(w)}</strong></span>
+          <span style="font-size:0.75rem; opacity:0.7;">
+            ${this._formatDate(start)} – ${this._formatDate(end)}
+          </span>
+        </div>
+      `;
+    });
+  }
+
+  /* =========================
+     KEYBOARD NAVIGATION
+  ========================== */
+
+  _onTriggerKeyDown(e) {
+    if (['Enter', 'ArrowDown', ' '].includes(e.key)) {
+      e.preventDefault();
+      this._open = true;
+    }
+  }
+
+  _onListKeyDown(e) {
+    const current = this._focusedWeek || this.value;
+    if (!current) return;
+
+    const [year, week] = current.split('-W');
+    let y = parseInt(year);
+    let w = parseInt(week);
+
+    if (e.key === 'ArrowDown') w++;
+    if (e.key === 'ArrowUp') w--;
+    if (e.key === 'Home') w = 1;
+    if (e.key === 'End') w = this._weeksInYear(y);
+    if (e.key === 'PageUp') y--;
+    if (e.key === 'PageDown') y++;
+
+    if (e.key === 'Enter') {
+      this._selectWeek(current);
+      return;
+    }
+
+    if (e.key === 'Escape') {
+      this._open = false;
+      return;
+    }
+
+    const maxWeeks = this._weeksInYear(y);
+    if (w < 1) w = 1;
+    if (w > maxWeeks) w = maxWeeks;
+
+    this._year = y;
+    this._focusedWeek = `${y}-W${String(w).padStart(2, '0')}`;
+  }
+
+  /* =========================
+     SELECTION + FORM
+  ========================== */
+
+  _selectWeek(value) {
+    this.value = value;
+    this._focusedWeek = value;
+    this._internals.setFormValue(value);
+    this._validate();
+    this._open = false;
+    this.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  _validate() {
+    if (this.required && !this.value) {
+      this._internals.setValidity({ valueMissing: true }, 'Required');
+      return;
+    }
+    this._internals.setValidity({});
+  }
+
+  formResetCallback() {
+    this.value = '';
+    this._internals.setFormValue(null);
+  }
+
+  /* =========================
+     HELPERS
+  ========================== */
+
+  _toggle = () => this._open = !this._open;
+
+  _changeYear(delta) {
+    this._year += delta;
+  }
+
+  _weeksInYear(year) {
+    return this._getISOWeek(new Date(year, 11, 28));
+  }
+
+  _weekLabel(w) {
+    return new Intl.NumberFormat(this.locale).format(w) &&
+      `Week ${w}`;
+  }
+
+  _formatDate(date) {
+    return new Intl.DateTimeFormat(this.locale, {
+      month: 'short',
+      day: '2-digit'
+    }).format(date);
+  }
+
+  _getISOWeekString(date) {
+    const year = date.getFullYear();
+    const week = this._getISOWeek(date);
+    return `${year}-W${String(week).padStart(2, '0')}`;
+  }
+
+  _getISOWeek(date) {
+    const tmp = new Date(date.valueOf());
+    const dayNum = (date.getDay() + 6) % 7;
+    tmp.setDate(tmp.getDate() - dayNum + 3);
+    const firstThursday = tmp.valueOf();
+    tmp.setMonth(0, 1);
+    if (tmp.getDay() !== 4) {
+      tmp.setMonth(0, 1 + ((4 - tmp.getDay()) + 7) % 7);
+    }
+    return 1 + Math.ceil((firstThursday - tmp) / 604800000);
+  }
+
+  _getWeekRange(year, week) {
+    const simple = new Date(year, 0, 1 + (week - 1) * 7);
+    const dow = simple.getDay();
+    const start = simple;
+    if (dow <= 4)
+      start.setDate(simple.getDate() - simple.getDay() + 1);
+    else
+      start.setDate(simple.getDate() + 8 - simple.getDay());
+    const end = new Date(start);
+    end.setDate(start.getDate() + 6);
+    return { start, end };
+  }
+
+  updated(changed) {
+    if (changed.has('_open') && this._open) {
+      this.updateComplete.then(() => {
+        const selected = this.renderRoot.querySelector('.selected');
+        selected?.scrollIntoView({ block: 'center' });
+      });
+    }
+  }
+}
+
+customElements.define('ui-week-picker', UIWeekPicker);
+</script>
+
+<ui-week-picker
+  name="reportWeek"
+  locale="de-DE"
+  min="2024-W01"
+  max="2026-W10"
+  required>
+</ui-week-picker>

@@ -1,6 +1,9 @@
 package button
 
 import (
+	"context"
+	"io"
+
 	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/component"
 	"github.com/cspecht/templ_franken-ui/components/icon"
@@ -8,11 +11,11 @@ import (
 
 type button struct {
 	component.C
-	name    string
-	variant string
-	size    string
-	width   string
-	icon    icon.Icon
+	name            string
+	variant         string
+	size            string
+	width           string
+	icon            icon.Icon
 	innerComponents []templ.Component
 }
 
@@ -35,7 +38,7 @@ func NewButton(name string) *button {
 
 	return &b
 }
-func (b *button) AddInnerComponent(comp templ.Component)  {
+func (b *button) AddInnerComponent(comp templ.Component) {
 	b.innerComponents = append(b.innerComponents, comp)
 
 }
@@ -113,4 +116,13 @@ func (b *button) AsText() *button {
 func (b *button) AsLink() *button {
 	b.variant = link
 	return b
+}
+func (b *button) Render(ctx context.Context, w io.Writer) error {
+
+	return b.component().Render(ctx, w)
+}
+
+func (b *buttonGroup) Render(ctx context.Context, w io.Writer) error {
+
+	return b.component().Render(ctx, w)
 }

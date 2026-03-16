@@ -8,7 +8,7 @@ package dotnav
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func (d *dotnav) Component() templ.Component {
+func (d *dotnav) component() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -60,7 +60,7 @@ func (d *dotnav) Component() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		for _, item := range d.items {
-			templ_7745c5c3_Err = item.Component().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = item.component().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -73,7 +73,7 @@ func (d *dotnav) Component() templ.Component {
 	})
 }
 
-func (di *dotnavItem) Component() templ.Component {
+func (di *dotnavItem) component() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {

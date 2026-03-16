@@ -1,13 +1,16 @@
 package container
 
 import (
+	"context"
+	"io"
+
 	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/component"
 )
 
 type container struct {
 	component.C
-	size   string
+	size    string
 	content templ.Component
 }
 
@@ -21,7 +24,7 @@ func (c *container) IsDefault() *container {
 	return c
 }
 func (c *container) IsXSmall() *container {
-	c.size =xsmall
+	c.size = xsmall
 	return c
 }
 func (c *container) IsSmall() *container {
@@ -43,4 +46,8 @@ func (c *container) IsExpanded() *container {
 func (c *container) SetContent(content templ.Component) *container {
 	c.content = content
 	return c
+}
+func (c *container) Render(ctx context.Context, w io.Writer) error {
+
+	return c.component().Render(ctx, w)
 }

@@ -1,6 +1,9 @@
 package accordion
 
 import (
+	"context"
+	"io"
+
 	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/component"
 )
@@ -17,7 +20,7 @@ type accordionItem struct {
 	component.C
 	title     string
 	text      string
-	component templ.Component
+	comp templ.Component
 	open      bool
 	icon      bool
 	accordion *accordion
@@ -32,9 +35,9 @@ func (a *accordion) DisableIcon() *accordion {
 }
 func (a *accordion) AddItem(title string, text string) *accordionItem {
 	item := &accordionItem{
-		title: title,
-		text:  text,
-		icon:  a.icon,
+		title:     title,
+		text:      text,
+		icon:      a.icon,
 		accordion: a,
 	}
 	a.items = append(a.items, item)
@@ -44,7 +47,7 @@ func (ai *accordionItem) Accordion() *accordion {
 	return ai.accordion
 }
 func (ai *accordionItem) SetComponent(comp templ.Component) *accordionItem {
-	ai.component = comp
+	ai.comp = comp
 	return ai
 }
 func (ai *accordionItem) IsOpen() *accordionItem {
@@ -54,6 +57,10 @@ func (ai *accordionItem) IsOpen() *accordionItem {
 func (ai *accordionItem) IsClosed() *accordionItem {
 	ai.open = false
 	return ai
+}
+func (ai *accordionItem) Render(ctx context.Context, w io.Writer) error {
+
+	return ai.component().Render(ctx, w)
 }
 func (a *accordion) DisableCollapsing() *accordion {
 	a.customParameters["collapsible"] = "false"
@@ -77,10 +84,14 @@ func (a *accordion) SetCustomParameters(k, v string) *accordion {
 	a.customParameters[k] = v
 	return a
 }
-func (a *accordion) getParameters()string{
+func (a *accordion) getParameters() string {
 	params := ""
 	for k, v := range a.customParameters {
 		params += k + ":" + v + ";"
 	}
 	return params
+}
+func (a *accordion) Render(ctx context.Context, w io.Writer) error {
+
+	return a.component().Render(ctx, w)
 }

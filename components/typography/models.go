@@ -1,6 +1,9 @@
 package typography
 
 import (
+	"context"
+	"io"
+
 	"github.com/cspecht/templ_franken-ui/components/component"
 )
 
@@ -18,6 +21,11 @@ func NewHeading(content string) *heading {
 		size:    h1,
 	}
 }
+func (h *heading) Render(ctx context.Context, w io.Writer) error {
+
+	return h.component().Render(ctx, w)
+}
+
 func (h *heading) SizeH1() *heading {
 	h.size = h1
 	return h
@@ -71,6 +79,11 @@ func NewHero(content string) *hero {
 		size:    md,
 	}
 }
+func (h *hero) Render(ctx context.Context, w io.Writer) error {
+
+	return h.component().Render(ctx, w)
+}
+
 func (he *hero) SizeSM() *hero {
 	he.size = sm
 	return he
@@ -106,6 +119,10 @@ func NewParagraph(content string) *paragraph {
 		content: content,
 	}
 }
+func (p *paragraph) Render(ctx context.Context, w io.Writer) error {
+
+	return p.component().Render(ctx, w)
+}
 
 type blockquote struct {
 	component.C
@@ -117,6 +134,11 @@ func NewBlockquote(content string) *blockquote {
 		content: content,
 	}
 }
+func (bq *blockquote) Render(ctx context.Context, w io.Writer) error {
+
+	return bq.component().Render(ctx, w)
+}
+
 
 type inlineCode struct {
 	component.C
@@ -128,6 +150,11 @@ func NewInlineCode(content string) *inlineCode {
 		content: content,
 	}
 }
+func (ic *inlineCode) Render(ctx context.Context, w io.Writer) error {
+
+	return ic.component().Render(ctx, w)
+}
+
 
 type text struct {
 	component.C
@@ -136,12 +163,18 @@ type text struct {
 	size      string
 	textStyle string
 }
+
 func NewText(content string) *text {
 	return &text{
 		content: content,
 		size:    defaultText,
 	}
 }
+func (t *text) Render(ctx context.Context, w io.Writer) error {
+
+	return t.component().Render(ctx, w)
+}
+
 func (t *text) AlignLeft() *text {
 	t.alignment = left
 	return t
@@ -187,4 +220,3 @@ func (t *text) Breaks() *text {
 	t.textStyle = breaks
 	return t
 }
-

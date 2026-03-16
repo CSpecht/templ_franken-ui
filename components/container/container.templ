@@ -1,6 +1,6 @@
 package container
 
-templ (c *container) Component() {
+templ (c *container) component() {
     <div class={ "uk-container", c.size, c.GetClasses() } { c.GetAttributes() ... }>
         @c.content
     </div>

@@ -1,0 +1,5 @@
+package spinner
+
+templ (s *spinner) component() {
+	<div class={ s.GetClasses(), } { s.GetAttributes() ... } data-uk-spinner={ s.getRatio() }></div>
+}

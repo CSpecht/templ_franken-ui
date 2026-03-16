@@ -1,6 +1,9 @@
 package label
 
 import (
+	"context"
+	"io"
+
 	"github.com/cspecht/templ_franken-ui/components/component"
 )
 
@@ -31,4 +34,9 @@ func (l *label) AsPrimary() *label {
 func (l *label) AsSecondary() *label {
 	l.style = secondary
 	return l
+}
+
+func (l *label) Render(ctx context.Context, w io.Writer) error {
+
+	return l.component().Render(ctx, w)
 }

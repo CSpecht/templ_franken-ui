@@ -1,5 +1,5 @@
 
-
+https://github.com/Oudwins/tailwind-merge-go
 
 TODO: Things need to be done:
 - ~~done~~
@@ -39,9 +39,9 @@ Components:
 - ~~Dropdown~~
 - Filter
 - ~~Icon~~
-- Image
+- ~~Image~~
 - ~~Label~~
-- Leader
+- ~~Leader~~
 - Lightbox
 - Link
 - List
@@ -54,14 +54,14 @@ Components:
 - Parallax
 - ~~Placeholder~~
 - Position
-- Progress
-- Scroll
+- ~~Progress~~
+- ~~Scroll~~
 - Scrollspy
 - Slidenav
 - Slider
 - Slideshow
 - Sortable
-- Spinner
+- ~~Spinner~~
 - Stepper
 - Sticky
 - Subnav

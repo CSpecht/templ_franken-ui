@@ -1,6 +1,9 @@
 package drop
 
 import (
+	"context"
+	"io"
+
 	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/component"
 )
@@ -15,8 +18,6 @@ type drop struct {
 	targetComponent  templ.Component
 	mode             string
 	customParameters map[string]string
-
-	
 }
 
 func NewDrop(triggerComponent triggerComponent, targetComponent templ.Component) *drop {
@@ -25,7 +26,7 @@ func NewDrop(triggerComponent triggerComponent, targetComponent templ.Component)
 		targetComponent:  targetComponent,
 	}
 }
-func (drop *drop) SetCustomParameters(k,v string) *drop {
+func (drop *drop) SetCustomParameters(k, v string) *drop {
 	if drop.customParameters == nil {
 		drop.customParameters = make(map[string]string)
 	}
@@ -33,7 +34,7 @@ func (drop *drop) SetCustomParameters(k,v string) *drop {
 	return drop
 }
 func (drop *drop) getCustomParameters() string {
-	
+
 	customParams := ""
 	for k, v := range drop.customParameters {
 		customParams += k + ":" + v + ";"
@@ -62,3 +63,7 @@ func (drop *drop) AddParentIcon() *drop {
 	return drop
 }
 
+func (drop *drop) Render(ctx context.Context, w io.Writer) error {
+
+	return drop.component().Render(ctx, w)
+}

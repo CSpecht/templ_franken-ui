@@ -1,0 +1,34 @@
+package pagination
+
+templ (p *pagination) component() {
+	<nav aria-label="Pagination">
+		
+		<ul class={ "uk-pgn", p.GetClasses(),p.alignment.String(),p.size.String(),p.style.String() } { p.GetAttributes() ... }>
+			if !p.skipPreviousNext {
+				<li class={ p.previousLabelAttributeStyles.Styles } { p.previousLabelAttributeStyles.Attributes ... }>
+					<a href="#">
+						<span data-uk-pgn-previous></span>
+						if p.previousLabel != "" {
+							{ p.previousLabel }
+						}
+					</a>
+				</li>
+			}
+			for _, el := range p.elements {
+				<li class={ el.GetClasses() }>
+					<a href="#" { el.GetAttributes() ... }>{ el.content }</a>
+				</li>
+			}
+			if !p.skipPreviousNext {
+				<li class={ p.nextLabelAttributeStyles.Styles } { p.nextLabelAttributeStyles.Attributes ... }>
+					<a href="#">
+						if p.nextLabel != "" {
+							{ p.nextLabel }
+						}
+						<span data-uk-pgn-next></span>
+					</a>
+				</li>
+			}
+		</ul>
+	</nav>
+}

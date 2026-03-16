@@ -1,6 +1,6 @@
 package drop
 
-templ (d *drop) Component() {
+templ (d *drop) component() {
 	<div class={ "uk-inline" ,d.GetClasses() } { d.GetAttributes() ... }>
 
 		@d.triggerComponent.Component()

@@ -1,0 +1,7 @@
+package progress
+
+import "fmt"
+
+templ (p *progress) component() {
+	<progress class={ "uk-progress", p.GetClasses(), } { p.GetAttributes() ... } value={ fmt.Sprintf("%d", p.value) } max={ fmt.Sprintf("%d", p.max) }></progress>
+}

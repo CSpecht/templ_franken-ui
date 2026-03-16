@@ -1,6 +1,6 @@
 package typography
 
-templ (t *text) Component() {
+templ (t *text) component() {
 	<span class={ t.textStyle , t.alignment, t.size,  t.GetClasses() } { t.GetAttributes() ... }>
 		{ t.content }
 	</span>

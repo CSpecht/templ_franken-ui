@@ -8,7 +8,7 @@ package accordion
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func (a *accordion) Component() templ.Component {
+func (a *accordion) component() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -73,7 +73,7 @@ func (a *accordion) Component() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		for _, a := range a.items {
-			templ_7745c5c3_Err = a.Component().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = a.component().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -86,7 +86,7 @@ func (a *accordion) Component() templ.Component {
 	})
 }
 
-func (ai *accordionItem) Component() templ.Component {
+func (ai *accordionItem) component() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -179,8 +179,8 @@ func (ai *accordionItem) Component() templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		if ai.component != nil {
-			templ_7745c5c3_Err = ai.component.Render(ctx, templ_7745c5c3_Buffer)
+		if ai.comp != nil {
+			templ_7745c5c3_Err = ai.comp.Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

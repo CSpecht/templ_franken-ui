@@ -1,27 +1,29 @@
 package cover
 
-templ (ic *imageCover) Component() {
-	<div class="uk-cover-container">
+import "fmt"
+
+templ (ic *imageCover) component() {
+	<div class={ "uk-cover-container", ic.GetClasses() } { ic.GetAttributes() ... }>
 		if ic.responsive {
-			<canvas width="" height=""></canvas>
+			<canvas width={ fmt.Sprint(ic.width) } height={ fmt.Sprint(ic.height) }></canvas>
 		}
 		<img src={ string(ic.src) } alt={ ic.alt } data-uk-cover/>
 	</div>
 }
 
-templ (vc *videoCover) Component() {
-	<div class="uk-cover-container">
+templ (vc *videoCover) component() {
+	<div class={ "uk-cover-container", vc.GetClasses() } { vc.GetAttributes() ... }>
 		if vc.responsive {
-			<canvas width="" height=""></canvas>
+			<canvas width={ fmt.Sprint(vc.width) } height={ fmt.Sprint(vc.height) }></canvas>
 		}
-		@vc.video.Component()
+		@vc.video
 	</div>
 }
 
-templ (vc *iframeCover) Component() {
-	<div class="uk-cover-container">
+templ (vc *iframeCover) component() {
+	<div class={ "uk-cover-container", vc.GetClasses() } { vc.GetAttributes() ... }>
 		if vc.responsive {
-			<canvas width="" height=""></canvas>
+			<canvas width={ fmt.Sprint(vc.width) } height={ fmt.Sprint(vc.height) }></canvas>
 		}
 		<iframe src={ string(vc.src) } data-uk-cover></iframe>
 	</div>

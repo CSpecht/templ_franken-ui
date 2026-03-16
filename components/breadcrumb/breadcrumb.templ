@@ -1,6 +1,6 @@
 package breadcrumb
 
-templ (b *breadcrumb) Component() {
+templ (b *breadcrumb) component() {
 	<nav aria-label="Breadcrumb">
 		<ul class={ "uk-breadcrumb", b.GetClasses(), } { b.GetAttributes() ... }>
 			for _, element := range b.elements {

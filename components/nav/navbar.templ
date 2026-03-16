@@ -1,14 +1,14 @@
 package nav
 
-templ (n *nav) Component() {
+templ (n *nav) component() {
 	<ul class={ "uk-nav", n.variant, n.GetClasses() } { n.GetAttributes() ... }>
 		for _, item := range n.items {
-			@item.Component()
+			@item
 		}
 	</ul>
 }
 
-templ (ne *navItem) Component() {
+templ (ne *navItem) component() {
 	<li
 		class={ templ.KV("uk-active", ne.active), ne.GetClasses() }
 		{ ne.GetAttributes() ... }
@@ -16,7 +16,7 @@ templ (ne *navItem) Component() {
 		if len(ne.link) > 0 {
 			<a href={ ne.link } { ne.linkAttributes ... }>
 				if ne.icon != nil {
-					@ne.icon.Component()
+					@ne.icon
 				}
 				{ ne.name }
 			</a>
@@ -29,15 +29,15 @@ templ (ne *navItem) Component() {
 	</li>
 }
 
-templ (hi *headerItem) Component() {
+templ (hi *headerItem) component() {
 	<li class="uk-nav-header">{ hi.name }</li>
 }
 
-templ (d *dividerItem) Component() {
+templ (d *dividerItem) component() {
 	<li class="uk-nav-divider"></li>
 }
 
-templ (nsi *navSub) Component() {
+templ (nsi *navSub) component() {
 	if nsi.parent == nil {
 		<li class="uk-parent">
 			<a href="#">
@@ -48,7 +48,7 @@ templ (nsi *navSub) Component() {
 			</a>
 			<ul class="uk-nav-sub">
 				for _, item := range nsi.items {
-					@item.Component()
+					@item
 				}
 			</ul>
 		</li>
@@ -62,7 +62,7 @@ templ (nsi *navSub) Component() {
 			</a>
 			<ul >
 				for _, item := range nsi.items {
-					@item.Component()
+					@item
 				}
 			</ul>
 		</li>

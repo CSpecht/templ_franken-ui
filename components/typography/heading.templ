@@ -1,6 +1,6 @@
 package typography
 
-templ (h *heading) Component() {
+templ (h *heading) component() {
 	<div class={ "mt-4", h.size,h.alignment, h.style, h.GetClasses() } { h.GetAttributes() ... }>
 		{ h.content }
 	</div>

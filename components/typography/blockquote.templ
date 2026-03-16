@@ -1,6 +1,6 @@
 package typography
 
-templ (b *blockquote) Component() {
+templ (b *blockquote) component() {
 	<blockquote class={ "uk-blockquote"  , b.GetClasses() } { b.GetAttributes() ... }>
 		{ b.content }
 	</blockquote>

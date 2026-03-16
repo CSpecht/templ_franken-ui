@@ -29,14 +29,14 @@ func Header(title string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"preload\" href=\"/assets/fonts/Sans.woff2\" as=\"font\" type=\"font/woff2\" crossorigin><link rel=\"preload\" href=\"/assets/fonts/Mono.woff2\" as=\"font\" type=\"font/woff2\" crossorigin><link rel=\"stylesheet\" href=\"/assets/css/franken-ui@2.0.0/core.min.css\"><script src=\"/assets/js/franken-ui@2.0.0/core.iife.js\"></script><script src=\"/assets/js/franken-ui@2.0.0/icon.iife.js\"></script><title>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><!-- <link rel=\"preload\" href=\"/assets/fonts/Sans.woff2\" as=\"font\" type=\"font/woff2\" crossorigin/>\n\t\t<link rel=\"preload\" href=\"/assets/fonts/Mono.woff2\" as=\"font\" type=\"font/woff2\" crossorigin/> --><link rel=\"preload\" href=\"/assets/fonts/geist-font/fonts/GeistVariableVF.woff2\" as=\"font\" type=\"font/woff2\" crossorigin><link rel=\"preload\" href=\"/assets/fonts/geist-font/fonts/GeistMonoVariableVF.woff2\" as=\"font\" type=\"font/woff2\" crossorigin><!-- <link rel=\"stylesheet\" href=\"/assets/fonts/geist-font/style.css\" /> --><!--\t<link rel=\"stylesheet\" href=\"/assets/css/franken-ui@2.0.0/core.min.css\"/>\n\n\t\t<script src=\"/assets/js/franken-ui@2.0.0/core.iife.js\"></script>\n\t\t<script src=\"/assets/js/franken-ui@2.0.0/icon.iife.js\"></script> --><link rel=\"stylesheet\" href=\"/assets/css/franken-ui@2.1.2/core.min.css\"><script src=\"/assets/js/franken-ui@2.1.2/core.iife.js\"></script><script src=\"/assets/js/franken-ui@2.1.2/icon.iife.js\"></script><title>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `layout/skeleton/header.templ`, Line: 12, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `layout/skeleton/header.templ`, Line: 33, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {

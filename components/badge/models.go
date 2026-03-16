@@ -1,6 +1,11 @@
 package badge
 
-import "github.com/cspecht/templ_franken-ui/components/component"
+import (
+	"context"
+	"io"
+
+	"github.com/cspecht/templ_franken-ui/components/component"
+)
 
 type badge struct {
 	component.C
@@ -26,4 +31,9 @@ func (d *badge) AsSecondary() *badge {
 func (d *badge) AsDestructive() *badge {
 	d.style = destructive
 	return d
+}
+
+func (d *badge) Render(ctx context.Context, w io.Writer) error {
+
+	return d.component().Render(ctx, w)
 }

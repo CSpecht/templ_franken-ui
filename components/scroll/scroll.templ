@@ -1,0 +1,9 @@
+package scroll
+
+templ (s *scroll) component() {
+	<a href={ s.getTarget() } class={ s.GetClasses(), } { s.GetAttributes() ... } data-uk-scroll={ s.getOffset() }>
+    if s.content != nil {
+      @s.content
+    } 
+  </a>
+}

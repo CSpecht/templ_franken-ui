@@ -1,6 +1,6 @@
 package typography
 
-templ (p *paragraph) Component() {
+templ (p *paragraph) component() {
 	<p class={ "uk-paragraph" ,  p.GetClasses() } { p.GetAttributes() ... }>
 		{ p.content }
 	</p>

@@ -2,28 +2,32 @@ package animation
 
 import "github.com/a-h/templ"
 
+type Animation string
+func (a Animation) String() string {
+	return string(a)
+}
 // These are the animation types and their corresponding CSS classes.
 const(
-	FadeIn string = "uk-anmt-fade"
-	ScaleUp string = "uk-anmt-scale-up"
-	ScaleDown string = "uk-anmt-scale-down"
-	Shake string = "uk-anmt-shake"
-	SlideLeft string = "uk-anmt-slide-left"
-	SlideTop string = "uk-anmt-slide-top"
-	SlideBottom string = "uk-anmt-slide-bottom"
-	SlideRight string = "uk-anmt-slide-right"
-	SlideLeftSmall string = "uk-anmt-slide-left-sm"
-	SlideTopSmall string = "uk-anmt-slide-top-sm"
-	SlideBottomSmall string = "uk-anmt-slide-bottom-sm"
-	SlideRightSmall string = "uk-anmt-slide-right-sm"
-	SlideLeftMedium string = "uk-anmt-slide-left-md"
-	SlideTopMedium string = "uk-anmt-slide-top-md"
-	SlideBottomMedium string = "uk-anmt-slide-bottom-md"
-	SlideRightMedium string = "uk-anmt-slide-right-md"
-	ReverseModifier string = "uk-anmt-reverse" // By default, all animations are incoming. To reverse any animation, add this class.
-	FastModifier string = "uk-anmt-fast"
-	KenBursn string = "uk-anmt-kenburns"
-	SVGStroke string = "uk-anmt-svg-stroke" // This animation is only available for SVG elements. It animates the stroke of an SVG path.
+	FadeIn Animation = "uk-anmt-fade"
+	ScaleUp Animation = "uk-anmt-scale-up"
+	ScaleDown Animation = "uk-anmt-scale-down"
+	Shake Animation = "uk-anmt-shake"
+	SlideLeft Animation = "uk-anmt-slide-left"
+	SlideTop Animation = "uk-anmt-slide-top"
+	SlideBottom Animation = "uk-anmt-slide-bottom"
+	SlideRight Animation = "uk-anmt-slide-right"
+	SlideLeftSmall Animation = "uk-anmt-slide-left-sm"
+	SlideTopSmall Animation = "uk-anmt-slide-top-sm"
+	SlideBottomSmall Animation = "uk-anmt-slide-bottom-sm"
+	SlideRightSmall Animation = "uk-anmt-slide-right-sm"
+	SlideLeftMedium Animation = "uk-anmt-slide-left-md"
+	SlideTopMedium Animation = "uk-anmt-slide-top-md"
+	SlideBottomMedium Animation = "uk-anmt-slide-bottom-md"
+	SlideRightMedium Animation = "uk-anmt-slide-right-md"
+	ReverseModifier Animation = "uk-anmt-reverse" // By default, all animations are incoming. To reverse any animation, add this class.
+	FastModifier Animation = "uk-anmt-fast"
+	KenBursn Animation = "uk-anmt-kenburns"
+	SVGStroke Animation = "uk-anmt-svg-stroke" // This animation is only available for SVG elements. It animates the stroke of an SVG path.
 )
 // By default, scaling animations originate from the center. To modify this behavior add this class with the desired origin.
 // The origin can be any of the following: top-left, top-right, etc .

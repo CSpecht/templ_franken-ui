@@ -1,23 +1,26 @@
 package alert
+
 import (
-	
+	"context"
+	"io"
+
 	"github.com/cspecht/templ_franken-ui/components/component"
 )
 
-type alert struct{
+type alert struct {
 	component.C
-	content string
-	title string
-	closeable bool
+	content     string
+	title       string
+	closeable   bool
 	destructive bool
 }
 
 func NewAlert(content string) *alert {
 	return &alert{
-		content: content,
-		closeable: false,
+		content:     content,
+		closeable:   false,
 		destructive: false,
-		title: "",
+		title:       "",
 	}
 }
 func (a *alert) SetTitle(title string) *alert {
@@ -35,4 +38,8 @@ func (a *alert) AsCloseable() *alert {
 func (a *alert) SetContent(content string) *alert {
 	a.content = content
 	return a
+}
+func (a *alert) Render(ctx context.Context, w io.Writer) error {
+
+	return a.component().Render(ctx, w)
 }

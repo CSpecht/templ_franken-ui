@@ -1,6 +1,9 @@
 package placeholder
 
 import (
+	"context"
+	"io"
+
 	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/component"
 )
@@ -35,4 +38,7 @@ func (p *placeholder) SetContent(content ...templ.Component) *placeholder {
 	return p
 }
 
+func (p *placeholder) Render(ctx context.Context, w io.Writer) error {
 
+	return p.component().Render(ctx, w)
+}

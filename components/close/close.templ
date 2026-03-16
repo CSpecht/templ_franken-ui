@@ -1,0 +1,9 @@
+package close
+
+templ (c *close) component() {
+	if c.button {
+		<button type="button" data-uk-close class={ c.GetClasses() } { c.GetAttributes() ... }></button>
+	} else {
+		<a href="" data-uk-close class={ c.GetClasses() } { c.GetAttributes() ... }></a>
+	}
+}

@@ -1,6 +1,9 @@
 package comment
 
 import (
+	"context"
+	"io"
+
 	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/component"
 )
@@ -87,4 +90,13 @@ func NewCommentList() *commentList {
 func (cl *commentList) AddComment(c *comment) *commentList {
 	cl.comments = append(cl.comments, c)
 	return cl
+}
+
+func (c *comment) Render(ctx context.Context, w io.Writer) error {
+
+	return c.component().Render(ctx, w)
+}
+func (cl *commentList) Render(ctx context.Context, w io.Writer) error {
+
+	return cl.component().Render(ctx, w)
 }

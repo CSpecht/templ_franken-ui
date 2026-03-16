@@ -1,6 +1,9 @@
 package leader
 
 import (
+	"context"
+	"io"
+
 	"github.com/a-h/templ"
 	"github.com/cspecht/templ_franken-ui/components/component"
 )
@@ -50,4 +53,9 @@ func (l *leader) getCustomParameters() string {
 	}
 
 	return customParams
+}
+
+func (l *leader) Render(ctx context.Context, w io.Writer) error {
+
+	return l.component().Render(ctx, w)
 }

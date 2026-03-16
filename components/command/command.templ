@@ -1,7 +1,7 @@
 package command
 
-templ (c *command) Component() {
+templ (c *command) component() {
     <uk-command key={c.key} class={ c.GetClasses() } { c.GetAttributes() ... }>
-        @c.component
+        @c.comp
     </uk-command>
 }
