@@ -26,6 +26,7 @@ import (
 	"github.com/cspecht/templ_franken-ui/components/placeholder"
 	"github.com/cspecht/templ_franken-ui/components/progress"
 	"github.com/cspecht/templ_franken-ui/components/spinner"
+	"github.com/cspecht/templ_franken-ui/components/table"
 	"github.com/cspecht/templ_franken-ui/components/tooltip"
 	"github.com/cspecht/templ_franken-ui/components/typography"
 	"github.com/cspecht/templ_franken-ui/layout/skeleton"
@@ -167,6 +168,13 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	
 	comp = append(comp, pagi)
 	comp = append(comp, list)
+	tabelle := table.NewTable()
+	tabelle.WithCaption("this is a wonderful table").IsStriped().IsResponsiveStack()
+	tabelle.AddHeader(tabelle.NewCellElementText("ID"),tabelle.NewCellElementText("Username"),tabelle.NewCellElementText("Email"))
+	tabelle.NewRowElement().AddCells(tabelle.NewCellElementText("123"), tabelle.NewCellElementText("peter"),tabelle.NewCellElementText("test@gmail.com"))
+	tabelle.NewRowElement().AddCells(tabelle.NewCellElementText("123"), tabelle.NewCellElementText("peter"),tabelle.NewCellElementText("test@gmail.com"))
+	
+	comp = append(comp, tabelle)
 	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
 	//scr.Render(w)
 

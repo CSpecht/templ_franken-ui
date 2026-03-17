@@ -1,0 +1,68 @@
+package table
+
+templ (t *table) component() {
+	<table class={ "uk-table", t.GetClasses(), } { t.GetAttributes() ... }>
+		if len(t.caption)>0 {
+			<caption>{ t.caption }</caption>
+		}
+		if len(t.headElements)>0 {
+			<thead>
+				<tr>
+					for _,he := range t.headElements {
+						<th class={ he.GetClasses(), } { he.GetAttributes() ... }>
+							if len(he.text)>0 {
+								{ he.text }
+							} else {
+								if he.content !=nil {
+									@he.content
+								}
+							}
+						</th>
+					}
+				</tr>
+			</thead>
+		}
+		if len(t.rows)>0 {
+			for _,row := range t.rows {
+				<tr class={ row.GetClasses(), } { row.GetAttributes() ... }>
+					for idx,cell := range row.cells {
+						<td class={ row.GetClasses(), } { row.GetAttributes() ... } data-label={ t.getHeaderTitle(idx, row.GetAttributes()) }>
+							if len(cell.text)>0 {
+								{ cell.text }
+							} else {
+								if cell.content !=nil {
+									@cell.content
+								}
+							}
+						</td>
+					}
+				</tr>
+			}
+		}
+		if len(t.footElements)>0 {
+			<thead>
+				<tr>
+					for _,fe := range t.footElements {
+						<th class={ fe.GetClasses(), } { fe.GetAttributes() ... }>
+							if len(fe.text)>0 {
+								{ fe.text }
+							} else {
+								if fe.content !=nil {
+									@fe.content
+								}
+							}
+						</th>
+					}
+				</tr>
+			</thead>
+		}
+	</table>
+}
+
+templ (t *table) divWrapper(comp templ.Component) {
+	<div class="uk-overflow-auto">
+		if comp !=nil {
+			@comp
+		}
+	</div>
+}

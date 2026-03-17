@@ -1,6 +1,5 @@
 
-https://github.com/Oudwins/tailwind-merge-go
-
+this reposity is still work in progress - and not sure if it will be ever finished... :)
 TODO: Things need to be done:
 - ~~done~~
 
@@ -44,13 +43,13 @@ Components:
 - ~~Leader~~
 - Lightbox
 - Link
-- List
+- ~~List~~
 - Masonry Grid
 - Modal
-- Nav
+- ~~Nav~~
 - Notification
 - Offcanvas
-- Pagination
+- ~~Pagination~~
 - Parallax
 - ~~Placeholder~~
 - Position
@@ -68,7 +67,7 @@ Components:
 - SVG
 - Switcher
 - Tab
-- Table
+- ~~Table~~
 - Theme Switcher
 - Thumbnav
 - Toggle
