@@ -1,5 +1,9 @@
 
 this reposity is still work in progress - and not sure if it will be ever finished... :)
+
+
+ templ generate && go run .
+
 TODO: Things need to be done:
 - ~~done~~
 

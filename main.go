@@ -16,6 +16,8 @@ import (
 	"github.com/cspecht/templ_franken-ui/components/divider"
 	"github.com/cspecht/templ_franken-ui/components/dotnav"
 	"github.com/cspecht/templ_franken-ui/components/dropdown"
+	"github.com/cspecht/templ_franken-ui/components/forms/basics"
+
 	"github.com/cspecht/templ_franken-ui/components/icon"
 	"github.com/cspecht/templ_franken-ui/components/image"
 	"github.com/cspecht/templ_franken-ui/components/label"
@@ -165,16 +167,24 @@ func handlePage(w http.ResponseWriter, r *http.Request) {
 	pagi.AddPage("1", false, false)
 	pagi.AddPage("2", true, false).AddPlacHolder()
 	pagi.AddPage("3", false, true)
-	
+
 	comp = append(comp, pagi)
 	comp = append(comp, list)
 	tabelle := table.NewTable()
 	tabelle.WithCaption("this is a wonderful table").IsStriped().IsResponsiveStack()
-	tabelle.AddHeader(tabelle.NewCellElementText("ID"),tabelle.NewCellElementText("Username"),tabelle.NewCellElementText("Email"))
-	tabelle.NewRowElement().AddCells(tabelle.NewCellElementText("123"), tabelle.NewCellElementText("peter"),tabelle.NewCellElementText("test@gmail.com"))
-	tabelle.NewRowElement().AddCells(tabelle.NewCellElementText("123"), tabelle.NewCellElementText("peter"),tabelle.NewCellElementText("test@gmail.com"))
-	
+	tabelle.AddHeader(tabelle.NewCellElementText("ID"), tabelle.NewCellElementText("Username"), tabelle.NewCellElementText("Email"))
+	tabelle.NewRowElement().AddCells(tabelle.NewCellElementText("123"), tabelle.NewCellElementText("peter"), tabelle.NewCellElementText("test@gmail.com"))
+	tabelle.NewRowElement().AddCells(tabelle.NewCellElementText("123"), tabelle.NewCellElementText("peter"), tabelle.NewCellElementText("test@gmail.com"))
 	comp = append(comp, tabelle)
+	f := basics.ExampleForm()
+	comp = append(comp, f)
+	f2 := basics.AnotherExample()
+	comp = append(comp, f2)
+	form := basics.NewForm()
+	fs := basics.NewFieldSet().WithLegend("My User Inputs").AddComponents(basics.NewLabel("Best","best"),basics.NewFormControls(basics.NewInputText("name","","").DisableSpellcheck().DisableAutocomplete()),basics.NewErrorText("super error", "bla"))
+	form.AddComponents(fs)
+	form.AddActions(button.NewButton("Submit"))
+	comp = append(comp, form)
 	templ.Handler(skeleton.FullSite("name", comp...)).ServeHTTP(w, r)
 	//scr.Render(w)
 

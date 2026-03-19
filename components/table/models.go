@@ -22,7 +22,7 @@ func NewTable(attrStyles ...component.AttributesStyles) *table {
 	if len(attrStyles) > 0 {
 		t.SetAttributes(attrStyles[0].Attributes)
 		t.SetClasses(attrStyles[0].Styles...)
-	} else{
+	} else {
 		t.SetAttributes(make(templ.Attributes))
 	}
 	return &t
@@ -33,7 +33,7 @@ func (t *table) WithCaption(caption string) *table {
 }
 func (t *table) IsResponsiveOverflow() *table {
 	t.responsive = ResponsiveOverflow
-	
+
 	return t
 }
 func (t *table) IsResponsiveStack() *table {
@@ -41,28 +41,29 @@ func (t *table) IsResponsiveStack() *table {
 	t.SetClasses(ResponsiveStack.String())
 	return t
 }
-func (t *table) WithDivider()*table{
+func (t *table) WithDivider() *table {
 	t.SetClasses(Divider.String())
 	return t
 }
-func (t *table) IsStriped()*table{
+func (t *table) IsStriped() *table {
 	t.SetClasses(Striped.String())
 	return t
 }
-func (t *table) WithHover()*table{
+func (t *table) WithHover() *table {
 	t.SetClasses(Hover.String())
 	return t
 }
-func (t *table) SetSize(size TableSize)*table{
+func (t *table) SetSize(size TableSize) *table {
 	t.SetClasses(size.String())
 	return t
 }
-func (t *table)AddTableModifier(tm TableModifier)*table{
+func (t *table) AddTableModifier(tm TableModifier) *table {
 	t.SetClasses(tm.String())
 	return t
 }
+
 // To remove the outer padding of the first and last columns so that they are flush with the table
-func (t *table)Justify()*table{
+func (t *table) Justify() *table {
 	t.SetClasses(Justify.String())
 	return t
 }
@@ -85,7 +86,7 @@ func (t *table) NewRowElement(attrStyles ...component.AttributesStyles) *rowElem
 	if len(attrStyles) > 0 {
 		row.SetAttributes(attrStyles[0].Attributes)
 		row.SetClasses(attrStyles[0].Styles...)
-	} else{
+	} else {
 		row.SetAttributes(make(templ.Attributes))
 	}
 	t.rows = append(t.rows, row)
@@ -96,7 +97,7 @@ func (r *rowElement) AddCells(cells ...*cellElement) *rowElement {
 	r.cells = append(r.cells, cells...)
 	return r
 }
-func (r *rowElement) AddTableModifier(tm TableModifier)*rowElement{
+func (r *rowElement) AddTableModifier(tm TableModifier) *rowElement {
 	r.SetClasses(tm.String())
 	return r
 }
@@ -112,7 +113,7 @@ func (t *table) NewCellElement(comp templ.Component, attrStyles ...component.Att
 	if len(attrStyles) > 0 {
 		cell.SetAttributes(attrStyles[0].Attributes)
 		cell.SetClasses(attrStyles[0].Styles...)
-	} else{
+	} else {
 		cell.SetAttributes(make(templ.Attributes))
 	}
 	return &cell
@@ -123,29 +124,29 @@ func (t *table) NewCellElementText(text string, attrStyles ...component.Attribut
 	if len(attrStyles) > 0 {
 		cell.SetAttributes(attrStyles[0].Attributes)
 		cell.SetClasses(attrStyles[0].Styles...)
-	}else{
+	} else {
 		cell.SetAttributes(make(templ.Attributes))
 	}
 	return &cell
 }
-func (c *cellElement)AddTableModifier(tm TableModifier)*cellElement{
+func (c *cellElement) AddTableModifier(tm TableModifier) *cellElement {
 	c.SetClasses(tm.String())
 	return c
 }
 func (t *table) getHeaderTitle(idx int, attr templ.Attributes) string {
 	// first we should check if they key exist
-	if attr !=nil{
-	value, ok := attr["data-label"]
+	if attr != nil {
+		value, ok := attr["data-label"]
 		if ok {
-			
+
 			// can parse?
 			sValue, ok := value.(string)
-			if ok{
+			if ok {
 				return sValue
 			}
-		} 
+		}
 	}
-	
+
 	if idx >= 0 && idx < len(t.headElements) {
 		return t.headElements[idx].text
 

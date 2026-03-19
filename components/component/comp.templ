@@ -1,0 +1,8 @@
+package component
+
+templ MergeComponents(comps ...templ.Component){
+
+    for _, c := range comps{
+        @c
+    }
+}

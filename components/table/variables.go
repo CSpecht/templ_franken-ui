@@ -7,9 +7,9 @@ func (tm TableModifier) String() string {
 }
 
 const (
-	Divider            TableModifier = "uk-table-divider"
-	Striped            TableModifier = "uk-table-striped"
-	Hover              TableModifier = "uk-table-hover"
+	Divider TableModifier = "uk-table-divider"
+	Striped TableModifier = "uk-table-striped"
+	Hover   TableModifier = "uk-table-hover"
 
 	Justify            TableModifier = "uk-table-justify" // To remove the outer padding of the first and last columns so that they are flush with the table
 	AlignMiddle        TableModifier = "uk-table-middle"  // To vertically center table content, just add the .uk-table-middle class. You can also apply the class to <tr> or <td> elements for a more specific selection.
@@ -26,11 +26,13 @@ const (
 )
 
 type TableSize string
-func (t TableSize)String()string{
+
+func (t TableSize) String() string {
 	return string(t)
 }
-const(
-	SizeSm             TableSize = "uk-table-sm"
-	SizeMd             TableSize = "uk-table-md"
-	SizeLg             TableSize = "uk-table-lg"
+
+const (
+	SizeSm TableSize = "uk-table-sm"
+	SizeMd TableSize = "uk-table-md"
+	SizeLg TableSize = "uk-table-lg"
 )

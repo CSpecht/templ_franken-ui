@@ -1,0 +1,207 @@
+package basics
+
+templ ExampleForm() {
+	<form>
+		<fieldset>
+			<legend>Choose your favorite monster</legend>
+			<input type="radio" id="kraken" name="monster" value="K"/>
+			<label for="kraken">Kraken</label>
+			<br/>
+			<input type="radio" id="sasquatch" name="monster" value="S"/>
+			<label for="sasquatch">Sasquatch</label>
+			<br/>
+			<input type="radio" id="mothman" name="monster" value="M"/>
+			<label for="mothman">Mothman</label>
+		</fieldset>
+	</form>
+}
+
+templ AnotherExample() {
+	<form>
+		<fieldset class="uk-fieldset space-y-4">
+			<label class="uk-form-label text-destructive block">Select an option</label>
+			<div class="">
+				<input
+					class="uk-input"
+					type="text"
+					placeholder="Input"
+					aria-label="Input"
+				/>
+				<div class="uk-form-help" id="name-help-block">
+					This is your public display name. It can be your real name or a pseudonym.
+					You can only change this once every 30 days.
+				</div>
+				<p class="uk-form-help text-destructive">This field is required.</p>
+			</div>
+			<div class="">
+				<select class="uk-select" aria-label="Select">
+					<option>Option 01</option>
+					<option>Option 02</option>
+				</select>
+			</div>
+			<div class="">
+				<textarea
+					class="uk-textarea"
+					rows="5"
+					placeholder="Textarea"
+					aria-label="Textarea"
+				></textarea>
+			</div>
+			<div class="">
+				<label class="mr-2">
+					<input class="uk-radio mr-1" type="radio" name="radio2" checked/>
+					Option 1
+				</label>
+				<label>
+					<input class="uk-radio mr-1" type="radio" name="radio2"/> Option 2
+				</label>
+			</div>
+			<div class="">
+				<label class="mr-2">
+					<input class="uk-checkbox mr-1" type="checkbox" checked/> Option 1
+				</label>
+				<label><input class="uk-checkbox mr-1" type="checkbox"/> Option 2</label>
+			</div>
+			<div class="">
+				<input
+					class="uk-range"
+					type="range"
+					value="2"
+					min="0"
+					max="10"
+					step="0.1"
+					aria-label="Range"
+				/>
+			</div>
+		</fieldset>
+	</form>
+}
+
+templ (f *form) component() {
+	<form
+		class={ f.GetClasses(), templ.KV(f.layout.String(), len(f.layout)>0 ), }
+		{ f.GetAttributes() ... }
+	>
+		for _, c := range f.comps {
+			@c
+		}
+		if f.action !=nil {
+			<footer role="group"
+				class={ f.actionStyles }
+				{ f.actionAttributes ... }
+			>
+				@f.action
+			</footer>
+		}
+	</form>
+}
+
+templ (fs *fieldSet) component() {
+	<fieldset
+		class={ "uk-fieldset", fs.GetClasses(), templ.KV(fs.layout.String(), len(fs.layout)>0 ), }
+		{ fs.GetAttributes() ... }
+	>
+		if len(fs.legend)>0 {
+			<legend>{ fs.legend }</legend>
+		}
+		for _, c := range fs.comps {
+			@c
+		}
+	</fieldset>
+}
+
+templ (fc *formControl) component() {
+	<div
+		class={ "uk-form-controls",fc.GetClasses(),
+			templ.KV("uk-form-controls-text", fc.IsHorizontal() ) }
+		{ fc.GetAttributes() ... }
+	>
+		@fc.comp
+	</div>
+}
+
+templ (l *label) component() {
+	<label
+		id?={ len(l.id)>0 }
+		class={ "uk-form-label",l.GetClasses(),
+			templ.KV("uk-form-label-required", l.required ), 
+			templ.KV("text-destructive", l.hasError ) }
+		{ l.GetAttributes() ... }
+		for?={ len(l.labelFor)>0 }
+	>{ l.name } </label>
+}
+
+templ (it *inputText) component() {
+	<input
+		type={ it.t.String() }
+		id={ it.id }
+		name={ it.name }
+		value={ it.value }
+		class={ "uk-input", it.GetClasses(), 
+			templ.KV("uk-form-destructive", it.hasError) ,
+			templ.KV(it.sizeModifier.String(), len(it.sizeModifier)>0 ) }
+		{ it.GetAttributes() ... }
+		required?={ it.required }
+		minlength?={ it.minLength>-1 }
+		maxlength?={ it.maxLength>-1 }
+		size?={ it.size>-1 }
+		pattern?={ len(it.pattern)>0 }
+		placeholder?={ len(it.placeholder)>0 }
+		readonly?={ it.readonly }
+		spellcheck={ boolTrueFalse(it.spellcheck) }
+		autocomplete={ boolOnOff(it.autocomplete) }
+		disabled?={ it.disabled }
+		aria-describedby?={ len(it.ariaDescribedby)>0 }
+		aria-label?={ len(it.ariaLabel)>0 }
+	/>
+}
+
+templ NewHelperText(text, id string) {
+	// todo: text-muted-foreground
+	<div class="uk-form-help " id={ id }>
+		@templ.Raw(text)
+	</div>
+}
+
+templ NewErrorText(text, id string) {
+	<p class="uk-form-help text-destructive" id={ id }>
+		@templ.Raw(text)
+	</p>
+}
+
+templ (fi *formIcon) component() {
+	if fi.isClickable {
+		<a
+			class={
+				"uk-form-icon",
+				fi.GetClasses(),
+				templ.KV("uk-form-icon-flip", fi.isFlipped),
+			}
+			{ fi.GetAttributes() ... }
+		>
+			@fi.formIcon
+		</a>
+	} else {
+		<span
+			class={
+				"uk-form-icon",
+				fi.GetClasses(),
+				templ.KV("uk-form-icon-flip", fi.isFlipped),
+			}
+			{ fi.GetAttributes() ... }
+		>
+			@fi.formIcon
+		</span>
+	}
+}
+
+templ (ih *inputHidden) component() {
+	<input
+		type={ ih.t.String() }
+		id?={ len(ih.id)>0 }
+		name={ ih.name }
+		value={ ih.value }
+		class={ ih.GetClasses() }
+		{ ih.GetAttributes() ... }
+	/>
+}

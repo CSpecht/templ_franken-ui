@@ -40,3 +40,4 @@ type AttributesStyles struct {
 	Attributes templ.Attributes
 	Styles []string
 }
+
